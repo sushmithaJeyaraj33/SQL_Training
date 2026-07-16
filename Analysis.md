@@ -749,7 +749,7 @@ FROM patents_1.patents_partitioned;
 For datasets exceeding **10 million records**, the recommended workflow is:
 
 1. Load incoming data into an **UNLOGGED staging table** for faster bulk imports.
-2. Move validated data into a **LOGGED production table** for durability.
+2. Can use **LOGGED table** for durability.
 3. Use a **UNIQUE MD5 Index** to prevent duplicate records.
 4. Create **B-Tree indexes** on frequently searched columns.
 5. Use **Partitioned Tables** to improve lookup performance, simplify maintenance, and support scalability.
