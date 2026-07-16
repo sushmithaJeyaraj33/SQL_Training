@@ -51,7 +51,8 @@ DELIMITER ','
 CSV HEADER;
 ```
 
-> **Screenshot**
+> <img width="718" height="151" alt="image_4" src="https://github.com/user-attachments/assets/019e5e7b-76ad-46cd-90ab-e68b559c748d" />
+
 
 ---
 
@@ -65,7 +66,8 @@ CREATE UNLOGGED TABLE patents_1.us_patents_unlogged (
 );
 ```
 
-> **Screenshot**
+> <img width="558" height="104" alt="image_5" src="https://github.com/user-attachments/assets/428dec4b-2d94-4e10-b59f-78a4cd04445d" />
+
 
 ---
 
@@ -78,7 +80,8 @@ DELIMITER ','
 CSV HEADER;
 ```
 
-> **Screenshot**
+> <img width="754" height="62" alt="image_6" src="https://github.com/user-attachments/assets/252c71fd-7ac9-4135-b95e-f74150e9e0fa" />
+
 
 ---
 
@@ -89,7 +92,8 @@ SELECT pg_size_pretty(
        pg_total_relation_size('patents_1.us_patents_logged'));
 ```
 
-> **Screenshot**
+> <img width="709" height="214" alt="image_8" src="https://github.com/user-attachments/assets/e06d3332-76ec-49a0-80b9-61b13db73b1c" />
+
 
 ---
 
@@ -100,8 +104,7 @@ SELECT pg_size_pretty(
        pg_total_relation_size('patents_1.us_patents_unlogged'));
 ```
 
-> **Screenshot**
-
+> <img width="780" height="210" alt="image_9" src="https://github.com/user-attachments/assets/8b3ad238-8953-4eb7-bd9d-5d0daa00e33c" /
 ---
 
 ## Primary Key Lookup (Unlogged)
