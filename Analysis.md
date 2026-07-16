@@ -9,7 +9,8 @@
 
 # Converting Parquet File to CSV
 
-> **Screenshot**
+<img width="936" height="61" alt="image_1" src="https://github.com/user-attachments/assets/49aea970-3931-479c-9799-4f225908a7bf" />
+
 
 ---
 
@@ -20,7 +21,6 @@ docker cp ~/Downloads/us_patents.csv ubuntu_pg2:/tmp/us_patents.csv
 docker exec -it ubuntu_pg2 bash
 ```
 
-> **Screenshot**
 
 ---
 
