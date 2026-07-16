@@ -675,17 +675,6 @@ ORDER BY partition_name;
 
 ---
 
-## Parent Table Size
-
-```sql
-SELECT pg_size_pretty(
-pg_relation_size('patents_1.patents_partitioned'));
-```
-
-> screenshot
-
----
-
 ## Index Size
 
 ```sql
