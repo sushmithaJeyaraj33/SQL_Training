@@ -145,7 +145,8 @@ SELECT UPPER(title) AS new_title
 FROM patents_1.us_patents_unlogged;
 ```
 
-> **Screenshot**
+> <img width="1044" height="198" alt="image_12" src="https://github.com/user-attachments/assets/81c1d1b6-359e-4786-9ed1-1a188978e753" />
+
 
 ---
 
@@ -157,7 +158,8 @@ SELECT UPPER(title) AS new_title
 FROM patents_1.us_patents_logged;
 ```
 
-> **Screenshot**
+> <img width="992" height="201" alt="image_13" src="https://github.com/user-attachments/assets/1680c962-5183-4e5e-84b0-25bddf4d1c5f" />
+
 
 ---
 
@@ -169,7 +171,8 @@ SELECT publication_number || ' - ' || title AS patent_identity
 FROM patents_1.us_patents_unlogged;
 ```
 
-> **Screenshot**
+> <img width="973" height="202" alt="image_14" src="https://github.com/user-attachments/assets/89b5b05a-9f81-4918-b7f1-726ec5ec0cfe" />
+
 
 ---
 
@@ -181,7 +184,8 @@ SELECT publication_number || ' - ' || title AS patent_identity
 FROM patents_1.us_patents_logged;
 ```
 
-> **Screenshot**
+> <img width="2000" height="400" alt="image_15" src="https://github.com/user-attachments/assets/c1b87602-ffc6-4fab-ab1b-64f72cbd7169" />
+
 
 ---
 
@@ -213,7 +217,8 @@ CREATE TABLE patents_1.patents_no_index (
 );
 ```
 
-> **Screenshot**
+> <img width="446" height="120" alt="image_16" src="https://github.com/user-attachments/assets/e29047f0-3302-453d-87e6-236f12d4dba6" />
+
 
 ---
 
@@ -225,7 +230,8 @@ FROM pg_indexes
 WHERE tablename='patents_no_index';
 ```
 
-> **Screenshot**
+> <img width="742" height="102" alt="image_17" src="https://github.com/user-attachments/assets/20f5b8e9-a158-4305-b23c-0ffa4156fcd4" />
+
 
 ---
 
@@ -238,7 +244,8 @@ DELIMITER ','
 CSV HEADER;
 ```
 
-> **Screenshot**
+> <img width="766" height="79" alt="image_18" src="https://github.com/user-attachments/assets/2af991bd-ab0c-46a1-ad1b-97a7268376be" />
+
 
 ---
 
@@ -249,7 +256,8 @@ SELECT COUNT(*)
 FROM patents_1.patents_no_index;
 ```
 
-> **Screenshot**
+> <img width="502" height="109" alt="image_19" src="https://github.com/user-attachments/assets/90a14647-3a40-4410-b6f2-28b27815c28b" />
+
 
 ---
 
@@ -260,7 +268,8 @@ SELECT pg_size_pretty(
 pg_relation_size('patents_1.patents_no_index'));
 ```
 
-> **Screenshot**
+> <img width="714" height="108" alt="image_20" src="https://github.com/user-attachments/assets/4929f901-32ef-41bb-ad82-94c51590bbfe" />
+
 
 ---
 
@@ -271,7 +280,8 @@ SELECT pg_size_pretty(
 pg_indexes_size('patents_1.patents_no_index'));
 ```
 
-> **Screenshot**
+> <img width="664" height="108" alt="image_21" src="https://github.com/user-attachments/assets/54c03649-7bda-4222-9651-d9d3e24b9ce2" />
+
 
 ---
 
@@ -284,7 +294,8 @@ FROM patents_1.patents_no_index
 WHERE publication_number='US-4081864-A';
 ```
 
-> **Screenshot**
+> <img width="1059" height="276" alt="image_22" src="https://github.com/user-attachments/assets/76ed1284-1626-4348-a616-ea1aa988689c" />
+
 
 ---
 
@@ -296,7 +307,8 @@ SELECT UPPER(title)
 FROM patents_1.patents_no_index;
 ```
 
-> **Screenshot**
+> <img width="1011" height="204" alt="image_23" src="https://github.com/user-attachments/assets/6ebcbe90-b4bc-434e-9105-fd1a2bdc2351" />
+
 
 ---
 
@@ -308,7 +320,8 @@ SELECT publication_number || ' - ' || title
 FROM patents_1.patents_no_index;
 ```
 
-> **Screenshot**
+> <img width="966" height="198" alt="image_24" src="https://github.com/user-attachments/assets/66d93c8b-3b07-4593-bb41-c172f7fd36d2" />
+
 
 ---
 
