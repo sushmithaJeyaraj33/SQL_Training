@@ -682,7 +682,8 @@ SELECT pg_size_pretty(
 pg_indexes_size('patents_1.patents_partitioned'));
 ```
 
-> **Screenshot**
+> <img width="936" height="144" alt="image" src="https://github.com/user-attachments/assets/06bf8ef5-32a0-4bb2-a7f3-b5471c9de634" />
+
 
 ---
 
