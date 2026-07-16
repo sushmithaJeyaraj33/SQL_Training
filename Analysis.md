@@ -337,7 +337,8 @@ CREATE TABLE patents_1.patents_with_index (
 );
 ```
 
-> **Screenshot**
+> <img width="464" height="118" alt="image_25" src="https://github.com/user-attachments/assets/f8b10783-9b02-45b3-83b8-23f1cf8c16d3" />
+
 
 ---
 
@@ -348,7 +349,8 @@ CREATE INDEX idx_patents_btree
 ON patents_1.patents_with_index(publication_number);
 ```
 
-> **Screenshot**
+> <img width="736" height="65" alt="image_26" src="https://github.com/user-attachments/assets/2621b56a-1d05-4def-b66b-691450c2a100" />
+
 
 ---
 
@@ -360,7 +362,8 @@ FROM pg_indexes
 WHERE tablename='patents_with_index';
 ```
 
-> **Screenshot**
+> <img width="395" height="114" alt="image_27" src="https://github.com/user-attachments/assets/92236ec1-1675-4f03-8227-8c36679cf7f2" />
+
 
 ---
 
@@ -373,7 +376,8 @@ DELIMITER ','
 CSV HEADER;
 ```
 
-> **Screenshot**
+> <img width="1480" height="140" alt="image_28" src="https://github.com/user-attachments/assets/dcc39c8f-adb8-45f5-835a-00b981b00b25" />
+
 
 ---
 
@@ -384,7 +388,8 @@ SELECT COUNT(*)
 FROM patents_1.patents_with_index;
 ```
 
-> **Screenshot**
+> <img width="513" height="115" alt="image_29" src="https://github.com/user-attachments/assets/5e4567bc-8702-46b8-a999-e254ac7807a1" />
+
 
 ---
 
@@ -395,7 +400,8 @@ SELECT pg_size_pretty(
 pg_relation_size('patents_1.patents_with_index'));
 ```
 
-> **Screenshot**
+> <img width="687" height="116" alt="image_30" src="https://github.com/user-attachments/assets/5d1ad335-9fb0-4f33-9b78-0ca472a96e9f" />
+
 
 ---
 
@@ -406,7 +412,8 @@ SELECT pg_size_pretty(
 pg_indexes_size('patents_1.patents_with_index'));
 ```
 
-> **Screenshot**
+> <img width="728" height="117" alt="image_31" src="https://github.com/user-attachments/assets/f57651d2-63d6-45cf-86b9-6a13aa875a81" />
+
 
 ---
 
@@ -419,7 +426,8 @@ FROM patents_1.patents_with_index
 WHERE publication_number='US-4081864-A';
 ```
 
-> **Screenshot**
+> <img width="1079" height="158" alt="image_32" src="https://github.com/user-attachments/assets/48de5b65-65cc-432e-8bd4-b1c1f1636656" />
+
 
 ---
 
@@ -431,7 +439,8 @@ SELECT UPPER(title)
 FROM patents_1.patents_with_index;
 ```
 
-> **Screenshot**
+> <img width="1026" height="206" alt="image_33" src="https://github.com/user-attachments/assets/99970604-845c-4668-bfb7-31c03662ae60" />
+
 
 ---
 
@@ -443,7 +452,8 @@ SELECT publication_number || ' - ' || title
 FROM patents_1.patents_with_index;
 ```
 
-> **Screenshot**
+> <img width="1026" height="205" alt="image_34" src="https://github.com/user-attachments/assets/6355f394-3cb9-49cf-a91a-cadb14f6d2ac" />
+
 
 ---
 
