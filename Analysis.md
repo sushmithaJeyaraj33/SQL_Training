@@ -732,7 +732,8 @@ SELECT publication_number || ' - ' || title
 FROM patents_1.patents_partitioned;
 ```
 
-> ![Uploading image_55.png…]()
+> <img width="1093" height="278" alt="image_55" src="https://github.com/user-attachments/assets/721a4d72-f926-4c18-ac21-eb6010ab6c82" />
+
 
 
 ---
