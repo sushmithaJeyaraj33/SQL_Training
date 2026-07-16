@@ -104,7 +104,9 @@ SELECT pg_size_pretty(
        pg_total_relation_size('patents_1.us_patents_unlogged'));
 ```
 
-> <img width="780" height="210" alt="image_9" src="https://github.com/user-attachments/assets/8b3ad238-8953-4eb7-bd9d-5d0daa00e33c" /
+> <img width="780" height="210" alt="image_9" src="https://github.com/user-attachments/assets/7380701f-d739-4885-9776-f1a110b65cdf" />
+
+
 ---
 
 ## Primary Key Lookup (Unlogged)
@@ -116,7 +118,8 @@ FROM patents_1.us_patents_unlogged
 WHERE publication_number='US-4081864-A';
 ```
 
-> **Screenshot**
+> <img width="1012" height="275" alt="image_10" src="https://github.com/user-attachments/assets/b21030f9-a5e6-4476-b9eb-fe7e3707586b" />
+
 
 ---
 
@@ -129,7 +132,8 @@ FROM patents_1.us_patents_logged
 WHERE publication_number='US-4081864-A';
 ```
 
-> **Screenshot**
+> <img width="1045" height="278" alt="image_11" src="https://github.com/user-attachments/assets/ad2ff1e9-8263-4e7a-9f74-b90d7d050718" />
+
 
 ---
 
