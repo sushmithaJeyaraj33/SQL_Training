@@ -469,7 +469,8 @@ CREATE TABLE patents_1.patents_md5 (
 );
 ```
 
-> **Screenshot**
+> <img width="470" height="110" alt="image_35" src="https://github.com/user-attachments/assets/cde34e82-afca-4b62-826d-852ace5542a5" />
+
 
 ---
 
@@ -481,7 +482,8 @@ ON patents_1.patents_md5
 (MD5(publication_number || title || abstract));
 ```
 
-> **Screenshot**
+> <img width="441" height="116" alt="image_36" src="https://github.com/user-attachments/assets/1d36e684-2eae-45cc-a94b-2e605dd97d8f" />
+
 
 ---
 
@@ -496,7 +498,8 @@ WHERE schemaname='patents_1'
 AND tablename='patents_md5';
 ```
 
-> **Screenshot**
+> <img width="426" height="186" alt="image_37" src="https://github.com/user-attachments/assets/c69d6c42-8027-435b-bb4a-ffe220170735" />
+
 
 ---
 
@@ -509,7 +512,8 @@ DELIMITER ','
 CSV HEADER;
 ```
 
-> **Screenshot**
+> <img width="690" height="86" alt="image_38" src="https://github.com/user-attachments/assets/9ce69ab8-601d-42eb-b80c-ff4f636932e3" />
+
 
 ---
 
@@ -520,7 +524,8 @@ SELECT COUNT(*)
 FROM patents_1.patents_md5;
 ```
 
-> **Screenshot**
+> <img width="395" height="140" alt="image_39" src="https://github.com/user-attachments/assets/7d585cbe-c210-4ad2-9d82-3e148b642ec4" />
+
 
 ---
 
@@ -531,7 +536,8 @@ SELECT pg_size_pretty(
 pg_relation_size('patents_1.patents_md5'));
 ```
 
-> **Screenshot**
+> <img width="392" height="154" alt="image_40" src="https://github.com/user-attachments/assets/bb26788b-6365-40c7-a3ad-548bfa1d12f2" />
+
 
 ---
 
@@ -542,7 +548,8 @@ SELECT pg_size_pretty(
 pg_indexes_size('patents_1.patents_md5'));
 ```
 
-> **Screenshot**
+> <img width="408" height="160" alt="image_41" src="https://github.com/user-attachments/assets/8b7eaa5b-4452-42c8-8241-3b5ac56970e9" />
+
 
 ---
 
@@ -555,7 +562,8 @@ FROM patents_1.patents_md5
 LIMIT 1;
 ```
 
-> **Screenshot**
+> <img width="945" height="128" alt="image_42" src="https://github.com/user-attachments/assets/309b7a87-6154-420b-a009-f52be41c5528" />
+
 
 ---
 
