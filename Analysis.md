@@ -596,7 +596,8 @@ CREATE TABLE patents_1.patents_partitioned(
 PARTITION BY HASH(publication_number);
 ```
 
-> **Screenshot**
+> <img width="570" height="144" alt="image_46" src="https://github.com/user-attachments/assets/7cb6435d-d0a5-47fe-9396-bfeeda5f46e7" />
+
 
 ---
 
@@ -608,7 +609,8 @@ PARTITION OF patents_1.patents_partitioned
 FOR VALUES WITH (MODULUS 5, REMAINDER 0);
 ```
 
-> **Screenshot**
+> <img width="431" height="450" alt="image_47" src="https://github.com/user-attachments/assets/13a76931-fb50-4d9c-9198-6071ab394193" />
+
 
 ---
 
@@ -620,26 +622,29 @@ FROM pg_inherits
 WHERE inhparent='patents_1.patents_partitioned'::regclass;
 ```
 
-> **Screenshot**
+> <img width="566" height="213" alt="image_48" src="https://github.com/user-attachments/assets/480db877-5d05-4a0e-934f-729f259389bf" />
+
 
 ---
 
 ## Import Data
 
-```sql
+```sql 
 COPY patents_1.patents_partitioned
 FROM '/tmp/us_patents.csv'
 DELIMITER ','
 CSV HEADER;
 ```
 
-> **Screenshot**
+> <img width="475" height="111" alt="image_49" src="https://github.com/user-attachments/assets/7fd01def-50db-4666-8788-f05d094e2b47" />
+
 
 ---
 
 ## CPU Usage During Import
 
-> **Screenshot**
+> <img width="666" height="131" alt="image_50" src="https://github.com/user-attachments/assets/f6e0504c-359c-4ad9-8c5f-3523fa0f12d0" />
+
 
 ---
 
@@ -650,7 +655,8 @@ SELECT COUNT(*)
 FROM patents_1.patents_partitioned;
 ```
 
-> **Screenshot**
+> <img width="598" height="151" alt="image_51" src="https://github.com/user-attachments/assets/39d52a8f-366d-460a-a8d1-b698644de8ed" />
+
 
 ---
 
@@ -664,7 +670,8 @@ GROUP BY tableoid
 ORDER BY partition_name;
 ```
 
-> **Screenshot**
+> <img width="390" height="255" alt="image_52" src="https://github.com/user-attachments/assets/21847f71-028d-4956-b836-a734efeeb855" />
+
 
 ---
 
@@ -675,7 +682,7 @@ SELECT pg_size_pretty(
 pg_relation_size('patents_1.patents_partitioned'));
 ```
 
-> **Screenshot**
+> screenshot
 
 ---
 
@@ -699,7 +706,8 @@ FROM patents_1.patents_partitioned
 WHERE publication_number='US-4081864-A';
 ```
 
-> **Screenshot**
+> <img width="1152" height="320" alt="image_53" src="https://github.com/user-attachments/assets/b8e7d0dd-0a97-4175-9a54-4ecb3bd47ce0" />
+
 
 ---
 
@@ -711,7 +719,8 @@ SELECT UPPER(title)
 FROM patents_1.patents_partitioned;
 ```
 
-> **Screenshot**
+> <img width="1095" height="276" alt="image_54" src="https://github.com/user-attachments/assets/cb13da7e-f3e2-479b-ba65-bb1cf5053026" />
+
 
 ---
 
@@ -723,7 +732,8 @@ SELECT publication_number || ' - ' || title
 FROM patents_1.patents_partitioned;
 ```
 
-> **Screenshot**
+> ![Uploading image_55.png…]()
+
 
 ---
 
