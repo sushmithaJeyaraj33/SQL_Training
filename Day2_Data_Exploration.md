@@ -1,5 +1,5 @@
 # Day 2 - SQL Data Exploration & Performance Optimization
-**Project:** Patent Analytics using PostgreSQL
+**Project:** Patent Analytics
 
 ---
 
