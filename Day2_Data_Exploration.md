@@ -29,7 +29,8 @@ This table serves as the primary staging area for bulk data ingestion and analyt
 
 ### Screenshot
 
-<img width="748" height="504" alt="image_1" src="https://github.com/user-attachments/assets/b5c8ec00-d1e7-46d7-a5f0-bab0a1ef214a" />
+<img width="627" height="140" alt="Screenshot 2026-07-19 at 5 17 12 PM" src="https://github.com/user-attachments/assets/74682550-4c7e-4ff5-893e-ad1eed782440" />
+
 
 
 
@@ -65,7 +66,8 @@ ALTER TABLE patents_1.patents_synthetic_data ADD PRIMARY KEY (publication_number
 
 ### Screenshot
 
-<img width="1381" height="302" alt="image_2" src="https://github.com/user-attachments/assets/3a763c60-cba8-4052-b602-caba3b9955da" />
+<img width="833" height="316" alt="Screenshot 2026-07-19 at 5 17 42 PM" src="https://github.com/user-attachments/assets/88000d8d-4bbe-498a-acb4-6ad5efce59b2" />
+
 
 
 ---
