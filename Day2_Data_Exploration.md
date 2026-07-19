@@ -358,7 +358,7 @@ Improving query performance using Indexes
 
 ---
 
-### 1. Profile Baseline Unindexed Scan
+### Example 1
 Run a baseline check filtering records down to a single specific year (2023) before optimizing.
 ```sql
 SELECT EXTRACT(YEAR FROM publication_date) AS patent_year, COUNT(*) 
@@ -406,9 +406,9 @@ GROUP BY 1;
 
 ---
 
-## Profile Baseline Regex Exclusion vs. Full-Text Search GIN Index
+## Example 2
 
-### 1. Analyze Performance of Regex Setup
+### 1. Analyze Performance of Regex
 
 ```sql
 EXPLAIN ANALYZE
@@ -422,15 +422,16 @@ WHERE p.title IS NOT NULL
   );
 ```
 
-#### Baseline Regex Query Plan Result
+#### Regex Query Plan Result
 
 <img width="1187" height="439" alt="image_17" src="https://github.com/user-attachments/assets/c17b1a24-0b5f-400c-b115-32e12d992ad1" />
 
 
 ---
 
-### 2. Construct Generalized Inverted Index (GIN) for Full-Text Search
-Build a GIN index on the lowercase `to_tsvector` representation of patent titles to map individual words directly to row identifiers.
+### 2. Construct Generalized Inverted Index (GIN)
+Build a GIN index on the lowercase `to_tsvector` representation of patent titles 
+
 ```sql
 CREATE INDEX idx_lower_title
 ON patents_1.patents_synthetic_data
@@ -453,7 +454,7 @@ Force the database to update its internal structural logs so that the query opti
 ANALYZE patents_1.patents_synthetic_data;
 ```
 
-### 4. Analyze Performance of Optimized Full-Text Search Pipeline
+### 4. Analyze Performance
 Re-run the session on the rewritten full-text query using the `@@` match operator to observe performance changes.
 ```sql
 EXPLAIN ANALYZE
