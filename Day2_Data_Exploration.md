@@ -333,7 +333,7 @@ ORDER BY patent_year;
 ```
 
 #### Query C Execution Result
-The screenshot below displays the final calculated Year-over-Year percentage trends:
+The screenshot below displays the final calculated Year-over-Year percentage change:
 
 <img width="584" height="670" alt="image_13" src="https://github.com/user-attachments/assets/c1a2ba71-6eec-4a47-9b28-426da2a7e5d8" />
 
@@ -359,7 +359,7 @@ Improving query performance using Indexes
 ---
 
 ### Example 1
-Run a baseline check filtering records down to a single specific year (2023) before optimizing.
+Run the query to filter a single specific year (2023) before optimizing.
 ```sql
 SELECT EXTRACT(YEAR FROM publication_date) AS patent_year, COUNT(*) 
 FROM patents_1.patents_synthetic_data
@@ -375,8 +375,9 @@ Below is the execution output screenshot showing a slow full table sequential sc
 
 ---
 
-### 2. Implement Expression Index Optimization
-Construct a functional index on the year expression so the database engine pre-calculates and caches these values.
+### 2. Implement Index Optimization
+Construct a functional index on the year 
+
 ```sql
 CREATE INDEX idx_patents_pub_date_year ON patents_1.patents_synthetic_data ((EXTRACT(YEAR FROM publication_date)));
 ```
@@ -389,7 +390,7 @@ Below is the terminal verification screenshot showing successful index creation
 
 ---
 
-### 3. Profile Optimized Index Tree Path Scan
+### 3. Performance after indexing
 Re-run the year-specific query to observe performance improvements with the new index path active.
 ```sql
 SELECT EXTRACT(YEAR FROM publication_date) AS patent_year, COUNT(*) 
