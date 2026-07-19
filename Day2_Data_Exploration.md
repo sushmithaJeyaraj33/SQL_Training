@@ -270,8 +270,8 @@ Calculating the year-over-year growth percentage using window functions.
 
 ## Trend Evaluation Scripts
 
+### Query A: Extract single highest production year
 ```sql
--- Query A: Extract single highest production year
 SELECT
     EXTRACT(YEAR FROM publication_date) AS patent_year,
     COUNT(*) AS patent_count
@@ -279,15 +279,18 @@ FROM patents_1.patents_synthetic_data
 GROUP BY patent_year
 ORDER BY patent_count DESC
 LIMIT 1;
+```
 
-#### Data Generation Verification
+#### Query A Execution Result
+Here is the screenshot confirming the single year with highest patent volume
 
-*Below is the screenshot confirming that all 10 million rows were generated and inserted successfully:*
-
-![Data Generation Screenshot](./screenshots/bulk_insert.png)
+<img width="498" height="203" alt="image_11" src="https://github.com/user-attachments/assets/1e6f1467-1982-493a-b714-c8d133585cef" />
 
 
--- Query B: Retrieve top 10 historical blocks
+---
+
+### Query B: Retrieve top 10 historical blocks
+```sql
 SELECT
     EXTRACT(YEAR FROM publication_date) AS patent_year,
     COUNT(*) AS patent_count
@@ -295,8 +298,18 @@ FROM patents_1.patents_synthetic_data
 GROUP BY patent_year
 ORDER BY patent_count DESC
 LIMIT 10;
+```
 
--- Query C: Calculate Year-over-Year growth percentages
+#### Query B Execution Result
+Below is the screenshot showing the distribution across the top 10 years
+
+<img width="529" height="315" alt="image_12" src="https://github.com/user-attachments/assets/81194c28-dc09-4e49-92ec-d207a250ece8" />
+
+
+---
+
+### Query C: Calculate Year-over-Year growth percentages
+```sql
 WITH yearly_patents AS
 (
     SELECT
@@ -317,19 +330,21 @@ FROM yearly_patents
 ORDER BY patent_year;
 ```
 
+#### Query C Execution Result
+The screenshot below displays the final calculated Year-over-Year percentage trends:
+
+<img width="584" height="670" alt="image_13" src="https://github.com/user-attachments/assets/c1a2ba71-6eec-4a47-9b28-426da2a7e5d8" />
+
+
 ---
 
 ### Concepts Covered
 
-- Date extraction and mathematical grouping metrics.
-- Common Table Expressions (CTEs) for staging linear sub-allocations.
-- Analytic `LAG()` window tracking mechanics for historical evaluations.
+- Common Table Expressions (CTEs).
+- Analytic `LAG()` window tracking historical evaluations.
 
 ---
 
-### Screenshot
-
-![Step 6 - Growth Analytics Output Screenshot Placeholder](https://placehold.co)
 
 ---
 
@@ -341,7 +356,7 @@ Improving query performance using Indexes
 
 ---
 
-## Profile Unindexed vs. Expression Index Filtering
+## Profile Unindexed vs Index Filtering
 
 ```sql
 -- Profile Baseline Unindexed Scan
@@ -350,8 +365,6 @@ FROM patents_1.patents_synthetic_data
 WHERE EXTRACT(YEAR FROM publication_date) = 2023
 GROUP BY 1;
 
-
-![Step 6 - Growth Analytics Output Screenshot Placeholder](https://placehold.co)
 
 -- Implement Expression Index Optimization
 CREATE INDEX idx_patents_pub_date_year ON patents_1.patents_synthetic_data ((EXTRACT(YEAR FROM publication_date)));
