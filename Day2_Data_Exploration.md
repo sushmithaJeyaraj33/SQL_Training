@@ -29,7 +29,9 @@ This table serves as the primary staging area for bulk data ingestion and analyt
 
 ### Screenshot
 
-![Step 1 - Table Creation Screenshot Placeholder](https://placehold.co)
+<img width="748" height="504" alt="image_1" src="https://github.com/user-attachments/assets/b5c8ec00-d1e7-46d7-a5f0-bab0a1ef214a" />
+
+
 
 ---
 
@@ -57,13 +59,14 @@ ALTER TABLE patents_1.patents_synthetic_data ADD PRIMARY KEY (publication_number
 - Unique, indexed primary key constraints on publication numbers.
 - Automated generation of 30,000 unique inventor entries.
 - Randomized date spanning a decade of publication dates.
-- Direct extraction of original unstructured source title and abstract configurations.
+  
 
 ---
 
 ### Screenshot
 
-![Step 2 - Bulk Data Loading Screenshot Placeholder](https://placehold.co)
+<img width="1381" height="302" alt="image_2" src="https://github.com/user-attachments/assets/3a763c60-cba8-4052-b602-caba3b9955da" />
+
 
 ---
 
@@ -84,6 +87,11 @@ CREATE TABLE patents_1.master_inventors (
 );
 ```
 
+## Screenshot
+
+<img width="461" height="109" alt="image_3" src="https://github.com/user-attachments/assets/856d5720-7383-45c0-bc2a-cec8a118875a" />
+
+
 ---
 
 ## Populate Inventor Master
@@ -93,6 +101,10 @@ INSERT INTO patents_1.master_inventors (inventor_name)
 SELECT DISTINCT inventor_name 
 FROM patents_1.patents_synthetic_data;
 ```
+
+## Screenshot
+
+<img width="558" height="94" alt="image_4" src="https://github.com/user-attachments/assets/8f3bf9a9-732d-476c-93be-dae182c6a0b2" />
 
 ---
 
@@ -106,7 +118,8 @@ FROM patents_1.patents_synthetic_data;
 
 ### Screenshot
 
-![Step 3 - Inventor Master Verification Screenshot Placeholder](https://placehold.co+(\d))
+<img width="888" height="154" alt="image_5" src="https://github.com/user-attachments/assets/c6edc0aa-56fa-4573-9502-e87ca8788d09" />
+
 
 ---
 
@@ -135,7 +148,8 @@ CREATE TABLE patents_1.title_word_analysis
 
 ### Screenshot
 
-![Step 3 - Inventor Master Verification Screenshot Placeholder](https://placehold.co+(\d))
+<img width="507" height="136" alt="image_6" src="https://github.com/user-attachments/assets/a57f511d-0bb6-44f5-b949-5a323864159d" />
+
 
 ---
 
@@ -154,6 +168,11 @@ ORDER BY frequency DESC
 LIMIT 100;
 ```
 
+## Screenshot
+
+<img width="514" height="352" alt="image_7" src="https://github.com/user-attachments/assets/3e8fbfa9-9637-4f9e-8662-e9075f73635a" />
+
+
 ```sql
 INSERT INTO patents_1.title_word_analysis (word, frequency, rank)
 SELECT
@@ -169,7 +188,8 @@ LIMIT 100;
 ```
 ### Screenshot
 
-![Step 3 - Inventor Master Verification Screenshot Placeholder](https://placehold.co+(\d))
+<img width="689" height="220" alt="image_8" src="https://github.com/user-attachments/assets/a3dd8aab-f1e1-4eaf-b5fb-34dd6beb5c51" />
+
 
 ---
 
@@ -181,22 +201,18 @@ SELECT * FROM patents_1.title_word_analysis LIMIT 10;
 
 ### Screenshot
 
-![Step 3 - Inventor Master Verification Screenshot Placeholder](https://placehold.co+(\d))
+<img width="634" height="213" alt="image_9" src="https://github.com/user-attachments/assets/bc6ef73e-51ec-4a2f-bb8f-c5b5b1067aef" />
+
 
 ---
 
 ### Concepts Covered
 
-- Dynamic string token splitting via `regexp_split_to_table()`.
-- Window functions alongside case-insensitive string parsing engines.
+- string token splitting via `regexp_split_to_table()`.
+- Window functions.
 
 ---
 
-### Screenshot
-
-![Step 4 - Word Tokenization Test Query Screenshot Placeholder](https://placehold.co)
-
----
 
 # 5. Patent Coverage Analysis
 
@@ -220,8 +236,6 @@ WHERE p.title IS NOT NULL
   );
 ```
 
----
-
 ### Concepts Covered
 
 - Correlated Subquery pipelines.
@@ -229,14 +243,14 @@ WHERE p.title IS NOT NULL
 - Regular expression boundary parsing components using `\y` parameters.
 
 ---
-
 ### Screenshot
 
-![Step 5 - Baseline Exclusion Query Screenshot Placeholder](https://placehold.co)
+<img width="836" height="436" alt="image_10" src="https://github.com/user-attachments/assets/564e4384-6959-45ae-b350-51726171e641" />
+
 
 ### SQL Approach
 
-NOT EXISTS uses a Correlated Subquery. For every patent row, it checks the 100-word table. The moment it finds even one matching word in the title, it immediately short-circuits (stops looking) and discards that patent from the results. It never wastes time checking the remaining 99 words for that row. 
+NOT EXISTS uses a Correlated Subquery. For every patent row, it checks the 100-word table. The moment it finds even one matching word in the title, it immediately stops looking and discards that patent from the results. It never wastes time checking the remaining 99 words for that row. 
 
 ~*: This is PostgreSQL's operator for a case-insensitive regular expression match. 
 
