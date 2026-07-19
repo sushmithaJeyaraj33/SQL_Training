@@ -23,7 +23,7 @@ CREATE TABLE patents_1.patents_synthetic_data (
 
 ### Purpose
 
-This table serves as the primary staging area for bulk data ingestion and analytics testing without initial index overhead constraints.
+This table serves as the primary staging area for bulk data ingestion and analytics testing.
 
 ---
 
@@ -35,7 +35,7 @@ This table serves as the primary staging area for bulk data ingestion and analyt
 
 # 2. Load Sample Patent Dataset
 
-Populate the table with **10 million synthetic patent records** dynamically from unlogged source configurations.
+Populate the table with **10 million synthetic patent records** 
 
 ```sql
 INSERT INTO patents_1.patents_synthetic_data 
@@ -56,7 +56,7 @@ ALTER TABLE patents_1.patents_synthetic_data ADD PRIMARY KEY (publication_number
 
 - Unique, indexed primary key constraints on publication numbers.
 - Automated generation of 30,000 unique inventor entries.
-- Randomized sliding chronological window spanning a decade of publication dates.
+- Randomized date spanning a decade of publication dates.
 - Direct extraction of original unstructured source title and abstract configurations.
 
 ---
@@ -71,7 +71,7 @@ ALTER TABLE patents_1.patents_synthetic_data ADD PRIMARY KEY (publication_number
 
 ## Objective
 
-Normalize inventor profiles into a structured lookup framework to eliminate structural duplicate fields.
+Creating a inventor master with inventor_id and name details.
 
 ---
 
@@ -104,14 +104,6 @@ FROM patents_1.patents_synthetic_data;
 
 ---
 
-### Expected Result
-
-- Redundant metadata components eliminated from the environment.
-- Standardized 4-byte serial identifiers instantiated safely to limit disk footprints.
-- Direct unique constraints built automatically to guarantee production consistency.
-
----
-
 ### Screenshot
 
 ![Step 3 - Inventor Master Verification Screenshot Placeholder](https://placehold.co+(\d))
@@ -122,7 +114,11 @@ FROM patents_1.patents_synthetic_data;
 
 ## Objective
 
-Deconstruct text titles down to unique words, filtering structural tokens to establish a top 100 word frequency table.
+Split patent titles into individual words using spaces and special characters as delimiters.
+Ignoring words with 3 or fewer characters.
+Convert words to a lower case
+Finding the Top 100 most frequently occurring words.
+Store the results in a new table.
 
 ---
 
@@ -136,6 +132,10 @@ CREATE TABLE patents_1.title_word_analysis
     rank INT
 );
 ```
+
+### Screenshot
+
+![Step 3 - Inventor Master Verification Screenshot Placeholder](https://placehold.co+(\d))
 
 ---
 
@@ -167,6 +167,9 @@ GROUP BY LOWER(word)
 ORDER BY frequency DESC
 LIMIT 100;
 ```
+### Screenshot
+
+![Step 3 - Inventor Master Verification Screenshot Placeholder](https://placehold.co+(\d))
 
 ---
 
@@ -176,12 +179,15 @@ LIMIT 100;
 SELECT * FROM patents_1.title_word_analysis LIMIT 10;
 ```
 
+### Screenshot
+
+![Step 3 - Inventor Master Verification Screenshot Placeholder](https://placehold.co+(\d))
+
 ---
 
 ### Concepts Covered
 
 - Dynamic string token splitting via `regexp_split_to_table()`.
-- Lateral block referencing configurations.
 - Window functions alongside case-insensitive string parsing engines.
 
 ---
@@ -196,7 +202,8 @@ SELECT * FROM patents_1.title_word_analysis LIMIT 10;
 
 ## Objective
 
-Isolate unmapped documents whose title fields completely avoid containing any captured entries from the top 100 frequency index.
+Finding all patents whose titles do not contain any of the Top 100 words.
+Explaining the SQL approach used.
 
 ---
 
@@ -227,17 +234,27 @@ WHERE p.title IS NOT NULL
 
 ![Step 5 - Baseline Exclusion Query Screenshot Placeholder](https://placehold.co)
 
+### SQL Approach
+
+NOT EXISTS uses a Correlated Subquery. For every patent row, it checks the 100-word table. The moment it finds even one matching word in the title, it immediately short-circuits (stops looking) and discards that patent from the results. It never wastes time checking the remaining 99 words for that row. 
+
+~*: This is PostgreSQL's operator for a case-insensitive regular expression match. 
+
+\y: This represents a word boundary anchor in PostgreSQL regex. By sandwiching the word between them (\yword\y), the engine ensures it only matches the exact, standalone word. It will match "system" or "System", but it will completely ignore partial sub-string matches like "ecosystem" or "microsystems". 
+
 ---
 
 # 6. Patent Trend Analysis
 
 ## Objective
 
-Measure historical data generation density metrics and calculate Year-over-Year volume change vectors.
+Finding the year with the highest number of patents.
+Displaying the Top 10 years by patent count.
+Calculating the year-over-year growth percentage using window functions.
 
 ---
 
-## Core Trend Evaluation Scripts
+## Trend Evaluation Scripts
 
 ```sql
 -- Query A: Extract single highest production year
@@ -312,6 +329,9 @@ FROM patents_1.patents_synthetic_data
 WHERE EXTRACT(YEAR FROM publication_date) = 2023
 GROUP BY 1;
 
+
+![Step 6 - Growth Analytics Output Screenshot Placeholder](https://placehold.co)
+
 -- Implement Expression Index Optimization
 CREATE INDEX idx_patents_pub_date_year ON patents_1.patents_synthetic_data ((EXTRACT(YEAR FROM publication_date)));
 
@@ -321,6 +341,12 @@ FROM patents_1.patents_synthetic_data
 WHERE EXTRACT(YEAR FROM publication_date) = 2023
 GROUP BY 1;
 ```
+---
+
+### Screenshot
+
+![Step 6 - Growth Analytics Output Screenshot Placeholder](https://placehold.co)
+
 
 ---
 
@@ -337,6 +363,14 @@ WHERE p.title IS NOT NULL
     FROM patents_1.title_word_analysis w
     WHERE p.title ~* ('\y' || w.word || '\y')
   );
+
+---
+
+### Screenshot
+
+![Step 6 - Growth Analytics Output Screenshot Placeholder](https://placehold.co)
+
+---
 
 -- Construct Generalized Inverted Index (GIN) for Full-Text Search
 CREATE INDEX idx_lower_title
@@ -362,6 +396,13 @@ WHERE p.title IS NOT NULL
 
 ---
 
+### Screenshot
+
+![Step 6 - Growth Analytics Output Screenshot Placeholder](https://placehold.co)
+
+---
+---
+
 ### Optimization Takeaways
 
 - **Algorithmic Transformation**: Converting a `Nested Loop Anti Join` into an isolated `InitPlan` cluster eliminates row-by-row regex comparisons.
@@ -370,7 +411,5 @@ WHERE p.title IS NOT NULL
 
 ---
 
-### Benchmarking Screenshots
 
-![Step 7A - Baseline Regex Plan Screenshot Placeholder](https://placehold.co)
 
