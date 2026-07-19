@@ -356,38 +356,59 @@ Improving query performance using Indexes
 
 ---
 
-## Profile Unindexed vs Index Filtering
-
+### 1. Profile Baseline Unindexed Scan
+Run a baseline check filtering records down to a single specific year (2023) before optimizing.
 ```sql
--- Profile Baseline Unindexed Scan
-SELECT EXTRACT(YEAR FROM publication_date) AS patent_year, COUNT(*) 
-FROM patents_1.patents_synthetic_data
-WHERE EXTRACT(YEAR FROM publication_date) = 2023
-GROUP BY 1;
-
-
--- Implement Expression Index Optimization
-CREATE INDEX idx_patents_pub_date_year ON patents_1.patents_synthetic_data ((EXTRACT(YEAR FROM publication_date)));
-
--- Profile Optimized Index Tree Path Scan
 SELECT EXTRACT(YEAR FROM publication_date) AS patent_year, COUNT(*) 
 FROM patents_1.patents_synthetic_data
 WHERE EXTRACT(YEAR FROM publication_date) = 2023
 GROUP BY 1;
 ```
+
+#### Unindexed Scan Execution Result
+Below is the execution output screenshot showing a slow full table sequential scan:
+
+<img width="1125" height="352" alt="image_14" src="https://github.com/user-attachments/assets/23f80714-79e9-44e2-a3ab-d8c67c9a5d68" />
+
+
 ---
 
-### Screenshot
+### 2. Implement Expression Index Optimization
+Construct a functional index on the year expression so the database engine pre-calculates and caches these values.
+```sql
+CREATE INDEX idx_patents_pub_date_year ON patents_1.patents_synthetic_data ((EXTRACT(YEAR FROM publication_date)));
+```
 
-![Step 6 - Growth Analytics Output Screenshot Placeholder](https://placehold.co)
+#### Index Creation Success Verification
+Below is the terminal verification screenshot showing successful index creation
+
+<img width="952" height="69" alt="image_15" src="https://github.com/user-attachments/assets/aa41d737-7f1d-40d1-ac45-7ca7ad277627" />
+
+
+---
+
+### 3. Profile Optimized Index Tree Path Scan
+Re-run the year-specific query to observe performance improvements with the new index path active.
+```sql
+SELECT EXTRACT(YEAR FROM publication_date) AS patent_year, COUNT(*) 
+FROM patents_1.patents_synthetic_data
+WHERE EXTRACT(YEAR FROM publication_date) = 2023
+GROUP BY 1;
+```
+
+#### Indexed Scan Execution Result
+
+
+<img width="1112" height="332" alt="image_16" src="https://github.com/user-attachments/assets/4cf4005e-2b47-4ade-9523-70102795d208" />
 
 
 ---
 
 ## Profile Baseline Regex Exclusion vs. Full-Text Search GIN Index
 
+### 1. Analyze Performance of Regex Setup
+
 ```sql
--- Analyze Performance of Baseline Regex Setup
 EXPLAIN ANALYZE
 SELECT p.publication_number, p.title
 FROM patents_1.patents_synthetic_data p
@@ -397,27 +418,42 @@ WHERE p.title IS NOT NULL
     FROM patents_1.title_word_analysis w
     WHERE p.title ~* ('\y' || w.word || '\y')
   );
+```
+
+#### Baseline Regex Query Plan Result
+
+<img width="1187" height="439" alt="image_17" src="https://github.com/user-attachments/assets/c17b1a24-0b5f-400c-b115-32e12d992ad1" />
+
 
 ---
 
-### Screenshot
-
-![Step 6 - Growth Analytics Output Screenshot Placeholder](https://placehold.co)
-
----
-
--- Construct Generalized Inverted Index (GIN) for Full-Text Search
+### 2. Construct Generalized Inverted Index (GIN) for Full-Text Search
+Build a GIN index on the lowercase `to_tsvector` representation of patent titles to map individual words directly to row identifiers.
+```sql
 CREATE INDEX idx_lower_title
 ON patents_1.patents_synthetic_data
 USING gin
 (
     to_tsvector('simple', lower(title))
 );
+```
 
--- Refresh Planner Statistics
+#### GIN Index Creation Success Verification
+
+<img width="500" height="139" alt="image_18" src="https://github.com/user-attachments/assets/ae8e8dc1-6b0a-43a1-9845-a57e5b740eab" />
+
+
+---
+
+### 3. Refresh Planner Statistics
+Force the database to update its internal structural logs so that the query optimizer knows the new index path exists.
+```sql
 ANALYZE patents_1.patents_synthetic_data;
+```
 
--- Analyze Performance of Optimized Full-Text Search Pipeline
+### 4. Analyze Performance of Optimized Full-Text Search Pipeline
+Re-run the session on the rewritten full-text query using the `@@` match operator to observe performance changes.
+```sql
 EXPLAIN ANALYZE
 SELECT p.publication_number, p.title
 FROM patents_1.patents_synthetic_data p
@@ -428,14 +464,15 @@ WHERE p.title IS NOT NULL
   );
 ```
 
+#### Optimized GIN Query Plan Result
+
+
+<img width="1114" height="447" alt="image_19" src="https://github.com/user-attachments/assets/156b2bac-ed5f-4342-ab98-48ebebc327da" />
+
+
 ---
 
-### Screenshot
 
-![Step 6 - Growth Analytics Output Screenshot Placeholder](https://placehold.co)
-
----
----
 
 
 
