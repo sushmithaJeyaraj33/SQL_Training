@@ -3,18 +3,6 @@
 
 ---
 
-# Dataset Information
-
-| Property | Value |
-|----------|-------|
-| Database | PostgreSQL |
-| Schema | patents_1 |
-| Table | patents_synthetic_data |
-| Records | 10,000,000 |
-| Purpose | SQL Ingestion, Word Parsing & Performance Optimization |
-
----
-
 # 1. Create Patent Synthetic Data Table
 
 ## Table Creation
