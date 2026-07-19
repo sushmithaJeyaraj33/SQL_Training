@@ -195,7 +195,7 @@ LIMIT 100;
 
 ---
 
-## View Top Word Allocations
+## View Top 100 word
 
 ```sql
 SELECT * FROM patents_1.title_word_analysis LIMIT 10;
