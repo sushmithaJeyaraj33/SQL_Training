@@ -312,11 +312,11 @@ ORDER BY patent_year;
 
 ---
 
-# 7. Performance Optimization Tuning
+# 7. Optimization
 
 ## Objective
 
-Profile slow full table execution plans using `EXPLAIN ANALYZE` and apply specialized indexes to shift retrieval costs downward.
+Improving query performance using Indexes
 
 ---
 
@@ -403,13 +403,6 @@ WHERE p.title IS NOT NULL
 ---
 ---
 
-### Optimization Takeaways
-
-- **Algorithmic Transformation**: Converting a `Nested Loop Anti Join` into an isolated `InitPlan` cluster eliminates row-by-row regex comparisons.
-- **Planner Cost Reductions**: Cost estimates fall significantly from **16,749,511.03** down to **3,079,449.34** following GIN tuning steps.
-- **Hardware Acceleration**: GIN indexing converts heavy sentence string comparisons into sub-second token matching lookups.
-
----
 
 
 
