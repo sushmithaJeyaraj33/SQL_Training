@@ -280,6 +280,13 @@ GROUP BY patent_year
 ORDER BY patent_count DESC
 LIMIT 1;
 
+#### Data Generation Verification
+
+*Below is the screenshot confirming that all 10 million rows were generated and inserted successfully:*
+
+![Data Generation Screenshot](./screenshots/bulk_insert.png)
+
+
 -- Query B: Retrieve top 10 historical blocks
 SELECT
     EXTRACT(YEAR FROM publication_date) AS patent_year,
