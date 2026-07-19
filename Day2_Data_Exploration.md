@@ -240,9 +240,9 @@ WHERE p.title IS NOT NULL
 
 ### Concepts Covered
 
-- Correlated Subquery pipelines.
-- Negative evaluation exclusions via `NOT EXISTS`.
-- Regular expression boundary parsing components using `\y` parameters.
+- Correlated Subquery.
+- Negative evaluation using `NOT EXISTS`.
+- Regular expression evaluation using `\y` parameters.
 
 ---
 ### Screenshot
@@ -252,11 +252,11 @@ WHERE p.title IS NOT NULL
 
 ### SQL Approach
 
-NOT EXISTS uses a Correlated Subquery. For every patent row, it checks the 100-word table. The moment it finds even one matching word in the title, it immediately stops looking and discards that patent from the results. It never wastes time checking the remaining 99 words for that row. 
+NOT EXISTS uses a Correlated Subquery. For every patent row, it checks the 100-word table. The moment it finds even one matching word in the title, it immediately stops looking and discards that patent from the results. 
 
 ~*: This is PostgreSQL's operator for a case-insensitive regular expression match. 
 
-\y: This represents a word boundary anchor in PostgreSQL regex. By sandwiching the word between them (\yword\y), the engine ensures it only matches the exact, standalone word. It will match "system" or "System", but it will completely ignore partial sub-string matches like "ecosystem" or "microsystems". 
+\y: By placing the word between them (\yword\y), the engine ensures it only matches the exact, standalone word. It will match "system" or "System", but it will completely ignore partial sub-string matches like "ecosystem" or "microsystems". 
 
 ---
 
