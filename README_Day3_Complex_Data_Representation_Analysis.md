@@ -275,16 +275,20 @@ CROSS JOIN LATERAL
 This query assigns **1 to 4 additional random inventors** to every patent using `CROSS JOIN LATERAL`. The lateral join executes the subquery for each patent individually, ensuring that every patent receives a unique set of inventors. The `ROW_NUMBER()` function generates the inventor sequence, while excluding the patent's original inventor avoids duplicate assignments.
 
 ---
-# 1. Create Patent Inventor Array
+
+# 2. Create Patent Inventor ARRAY
 
 ## Objective
 
-Represent each patent with all associated inventor names in a single ARRAY column.
+Represent each patent with **all its associated inventor names stored in a single ARRAY column**. This satisfies the requirement of grouping multiple inventors into one field, making ARRAY-based querying and analysis efficient.
 
-## SQL
+---
+
+## Create Patent Inventor ARRAY Table
 
 ```sql
 CREATE TABLE patents_1.patent_inventor_array AS
+
 SELECT
     publication_number,
     ARRAY_AGG(inventor_name ORDER BY inventor_name) AS inventor_array
@@ -294,13 +298,47 @@ GROUP BY publication_number;
 
 ### Explanation
 
-`ARRAY_AGG()` groups multiple inventor records into one ARRAY for every patent, reducing duplicate rows while preserving one-to-many relationships.
+The `ARRAY_AGG()` aggregate function groups all inventor names belonging to the same patent into a PostgreSQL ARRAY. Instead of storing multiple rows for a patent, all associated inventors are stored together in a single column.
 
-### Screenshot
+For example:
 
-> Insert screenshot here.
+**Before Grouping**
+
+| Publication Number | Inventor Name |
+|--------------------|---------------|
+| US0000000001 | Inventor_1023 |
+| US0000000001 | Inventor_5432 |
+| US0000000001 | Inventor_8765 |
+
+**After Grouping**
+
+| Publication Number | Inventor Array |
+|--------------------|----------------|
+| US0000000001 | {Inventor_1023, Inventor_5432, Inventor_8765} |
 
 ---
+
+### Why This Step?
+
+The assignment requires:
+
+> **Create a representation where each patent contains all its associated inventor names together in a single field.**
+
+Using an ARRAY allows PostgreSQL to store multiple inventor names in one column while preserving their relationship with the patent. This representation also enables efficient ARRAY operations such as searching, matching, and comparison in the following tasks.
+
+---
+
+### Advantages of Using ARRAY
+
+- Eliminates duplicate patent rows.
+- Stores multiple inventor names in a single column.
+- Simplifies one-to-many data representation.
+- Supports efficient ARRAY operators like `@>`, `ANY`, and `&&`.
+- Improves readability and simplifies JSON document generation.
+
+---
+
+
 
 # 2. Find Patents by a Specific Inventor
 
