@@ -338,31 +338,77 @@ Using an ARRAY allows PostgreSQL to store multiple inventor names in one column 
 
 ---
 
+# 3. Find Patents by a Specific Inventor
 
+## Objective
 
-# 2. Find Patents by a Specific Inventor
+Retrieve all patents associated with a **specific inventor** using PostgreSQL ARRAY operators. This demonstrates how ARRAY data can be efficiently searched without normalizing it back into individual rows.
 
-## SQL
+---
+
+## Method 1: Using ARRAY Contains Operator (`@>`)
 
 ```sql
 SELECT *
 FROM patents_1.patent_inventor_array
 WHERE inventor_array @> ARRAY['Inventor_22454'];
+```
 
+### Explanation
+
+The `@>` operator checks whether the ARRAY on the left contains all the elements of the ARRAY on the right.
+
+In this query, PostgreSQL searches for all patents whose `inventor_array` contains **Inventor_22454**.
+
+For example,
+
+| Publication Number | Inventor Array |
+|--------------------|----------------|
+| US0000000001 | {Inventor_1002, Inventor_22454, Inventor_7856} |
+
+Since **Inventor_22454** exists in the ARRAY, the patent is returned.
+
+---
+
+### Screenshot
+
+> Insert screenshot here.
+
+---
+
+## Method 2: Using the `ANY()` Operator
+
+```sql
 SELECT *
 FROM patents_1.patent_inventor_array
 WHERE 'Inventor_22454' = ANY(inventor_array);
 ```
 
-### Concepts Covered
+### Explanation
 
-- ARRAY
-- @>
-- ANY
+The `ANY()` operator checks whether the specified value matches **any element** within the ARRAY.
 
-### Screenshot
+This query produces the same result as the previous query but uses a different PostgreSQL syntax. It is commonly used when checking whether a single value exists inside an ARRAY.
 
-> Insert screenshot here.
+---
+
+### Why This Step?
+
+The assignment requires:
+
+> **Find patents where a specific inventor is associated with the patent.**
+
+Since inventor names are stored inside an ARRAY, PostgreSQL provides specialized ARRAY operators such as `@>` and `ANY()` to search the ARRAY directly, eliminating the need to split the ARRAY back into individual rows.
+
+---
+
+### Difference Between `@>` and `ANY()`
+
+| `@>` | `ANY()` |
+|------|---------|
+| Checks whether an ARRAY contains another ARRAY. | Checks whether a value exists in an ARRAY. |
+| Right side must be an ARRAY. | Right side is an ARRAY, left side is a single value. |
+| Suitable for ARRAY containment checks. | Suitable for single-value searches. |
 
 ---
 
@@ -388,6 +434,71 @@ The overlap operator (`&&`) returns patents containing at least one inventor fro
 
 ---
 
+# 4. Find Patents Matching At Least One Inventor from a Given List
+
+## Objective
+
+Retrieve patents that are associated with **at least one inventor** from a specified list. This demonstrates PostgreSQL's ability to compare ARRAY values and identify overlapping elements.
+
+---
+
+## Find Patents Using ARRAY Overlap Operator (`&&`)
+
+```sql
+SELECT *
+FROM patents_1.patent_inventor_array
+WHERE inventor_array && ARRAY
+[
+    'Inventor_5266',
+    'Inventor_22454',
+    'Inventor_10739'
+];
+```
+
+### Explanation
+
+The `&&` operator checks whether two ARRAYs have **at least one common element**.
+
+In this query, PostgreSQL compares the `inventor_array` of each patent with the given list of inventors. If one or more inventor names match, the corresponding patent is returned.
+
+For example,
+
+**Inventor List**
+
+```text
+{Inventor_5266, Inventor_22454, Inventor_10739}
+```
+
+**Patent Inventor Array**
+
+```text
+{Inventor_1045, Inventor_22454, Inventor_8912}
+```
+
+Since **Inventor_22454** appears in both arrays, the patent satisfies the condition and is included in the result.
+
+---
+
+### Why This Step?
+
+The assignment requires:
+
+> **Find patents where at least one inventor from a given list is associated with the patent.**
+
+Instead of executing multiple search conditions using `OR`, PostgreSQL's ARRAY overlap operator (`&&`) performs this comparison efficiently in a single operation.
+
+This approach becomes especially useful when searching against large lists of inventors in production databases.
+
+---
+
+### Advantages of Using `&&`
+
+- Checks multiple inventor names in a single query.
+- Simplifies SQL by avoiding multiple `OR` conditions.
+- Optimized for ARRAY data types.
+- Can leverage a **GIN Index** for faster searches on large datasets.
+
+---
 # 4. Find Two Patents Sharing Common Inventors
 
 ```sql
