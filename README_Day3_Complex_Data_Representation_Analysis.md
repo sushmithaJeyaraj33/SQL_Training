@@ -210,6 +210,71 @@ The `INSERT` statement generates **1 million synthetic patent records** using `g
 
 ---
 
+## Objective
+
+Create a mapping table to establish a **one-to-many relationship** between patents and inventors. Since the original patent dataset contains only one inventor per patent, this table is created to associate multiple inventors with a single patent, enabling complex ARRAY operations in later tasks.
+
+---
+
+## Create Patent-Inventor Mapping Table
+
+```sql
+CREATE TABLE patents_1.patent_inventors_listdata
+(
+    publication_number TEXT,
+    inventor_name      TEXT,
+    inventor_order     SMALLINT,
+    PRIMARY KEY(publication_number, inventor_order)
+);
+```
+
+### Explanation
+
+The `patent_inventors_listdata` table stores inventor information separately from the patent table, allowing multiple inventors to be linked to a single patent. The `inventor_order` column preserves the sequence of inventors for each patent and, together with `publication_number`, forms the primary key to ensure uniqueness.
+
+---
+
+### Screenshot
+
+> Insert screenshot here.
+
+---
+
+## Populate Patent-Inventor Mapping
+
+```sql
+INSERT INTO patents_1.patent_inventors_listdata
+(
+    publication_number,
+    inventor_name,
+    inventor_order
+)
+SELECT
+    p.publication_number,
+    x.inventor_name,
+    x.rn
+FROM patents_1.patents_mockdata1 p
+CROSS JOIN LATERAL
+(
+    SELECT
+        inventor_name,
+        ROW_NUMBER() OVER () + 1 AS rn
+    FROM
+    (
+        SELECT inventor_name
+        FROM patents_1.master_inventors
+        WHERE inventor_name <> p.inventor_name
+        ORDER BY random()
+        LIMIT (floor(random()*4)+1)::int
+    ) t
+) x;
+```
+
+### Explanation
+
+This query assigns **1 to 4 additional random inventors** to every patent using `CROSS JOIN LATERAL`. The lateral join executes the subquery for each patent individually, ensuring that every patent receives a unique set of inventors. The `ROW_NUMBER()` function generates the inventor sequence, while excluding the patent's original inventor avoids duplicate assignments.
+
+---
 # 1. Create Patent Inventor Array
 
 ## Objective
