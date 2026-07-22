@@ -382,7 +382,8 @@ Since **Inventor_22454** exists in the ARRAY, the patent is returned.
 
 ### Screenshot
 
-> Insert screenshot here.
+> <img width="438" height="221" alt="07" src="https://github.com/user-attachments/assets/425c196d-2fab-4743-a28d-7419575e7404" />
+
 
 ---
 
@@ -440,7 +441,8 @@ The overlap operator (`&&`) returns patents containing at least one inventor fro
 
 ### Screenshot
 
-> Insert screenshot here.
+> <img width="412" height="297" alt="08" src="https://github.com/user-attachments/assets/c4196741-d5de-4df3-89e8-007109489b9c" />
+
 
 ---
 
