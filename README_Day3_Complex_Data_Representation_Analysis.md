@@ -240,7 +240,7 @@ The `patent_inventors_listdata` table stores inventor information separately fro
 
 ### Screenshot
 
-> <img width="1365" height="396" alt="03" src="https://github.com/user-attachments/assets/afb2b367-e6f3-4f64-8486-81a25b212ba6" />
+<img width="556" height="137" alt="04" src="https://github.com/user-attachments/assets/ed026625-c88e-49e0-a547-d8ffb3165e10" />
 
 
 ---
@@ -278,6 +278,9 @@ CROSS JOIN LATERAL
 ### Explanation
 
 This query assigns **1 to 4 additional random inventors** to every patent using `CROSS JOIN LATERAL`. The lateral join executes the subquery for each patent individually, ensuring that every patent receives a unique set of inventors. The `ROW_NUMBER()` function generates the inventor sequence, while excluding the patent's original inventor avoids duplicate assignments.
+
+<img width="583" height="393" alt="05" src="https://github.com/user-attachments/assets/18001be6-4d0f-45bf-91e2-47f00f516698" />
+
 
 ---
 
