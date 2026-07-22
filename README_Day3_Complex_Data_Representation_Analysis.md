@@ -1,4 +1,3 @@
-<img width="461" height="158" alt="01" src="https://github.com/user-attachments/assets/0dac8ddf-ff40-4cfc-91d6-213e49b74810" />
 # Day 3 - Complex Data Representation & Analysis
 **Project:** Patent Analytics
 
