@@ -21,7 +21,9 @@ CREATE TABLE patents_1.patents_mockdata1
     abstract           TEXT
 );
 ```
+### Screenshot
 
+> <img width="461" height="158" alt="01" src="https://github.com/user-attachments/assets/487f694a-5330-4d04-8382-05e6617ae871" />
 ### Explanation
 
 This table stores the primary patent information. Each record contains a unique publication number along with inventor details, publication date, patent title, and abstract.
@@ -180,10 +182,8 @@ ARRAY[
 
 ) x;
 ```
+> <img width="597" height="579" alt="02" src="https://github.com/user-attachments/assets/32f5703f-48fd-43fd-a525-b9cf1f9eb321" />
 
-### Screenshot
-
-> <img width="461" height="158" alt="01" src="https://github.com/user-attachments/assets/487f694a-5330-4d04-8382-05e6617ae871" />
 
 
 ---
@@ -206,7 +206,8 @@ The `INSERT` statement generates **1 million synthetic patent records** using `g
 
 ### Screenshot
 
-> <img width="597" height="579" alt="02" src="https://github.com/user-attachments/assets/32f5703f-48fd-43fd-a525-b9cf1f9eb321" />
+<img width="1365" height="396" alt="03" src="https://github.com/user-attachments/assets/edd36e4d-92d1-46df-bc02-1d96d7ee58dc" />
+
 
 
 ---
