@@ -28,12 +28,7 @@ This table stores the primary patent information. Each record contains a unique 
 
 ---
 
-### Screenshot
 
-> <img width="461" height="158" alt="01" src="https://github.com/user-attachments/assets/487f694a-5330-4d04-8382-05e6617ae871" />
-
-
----
 
 ## Populate Mock Patent Data
 
@@ -186,6 +181,12 @@ ARRAY[
 ) x;
 ```
 
+### Screenshot
+
+> <img width="461" height="158" alt="01" src="https://github.com/user-attachments/assets/487f694a-5330-4d04-8382-05e6617ae871" />
+
+
+---
 ### Explanation
 
 The `INSERT` statement generates **1 million synthetic patent records** using `generate_series()`. Arrays containing technologies, domains, actions, and descriptive words are randomly combined with `concat_ws()` to produce realistic patent titles and abstracts, while inventor names and publication dates are randomly generated to simulate production-scale patent data.
