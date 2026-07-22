@@ -303,6 +303,8 @@ SELECT
 FROM patents_1.patent_inventors_listdata
 GROUP BY publication_number;
 ```
+<img width="1124" height="460" alt="06" src="https://github.com/user-attachments/assets/c0856ea8-89cd-412a-af51-6deac4447f75" />
+
 
 ### Explanation
 
