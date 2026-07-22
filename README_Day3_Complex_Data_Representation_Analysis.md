@@ -1,3 +1,4 @@
+<img width="461" height="158" alt="01" src="https://github.com/user-attachments/assets/0dac8ddf-ff40-4cfc-91d6-213e49b74810" />
 # Day 3 - Complex Data Representation & Analysis
 **Project:** Patent Analytics
 
@@ -30,7 +31,8 @@ This table stores the primary patent information. Each record contains a unique 
 
 ### Screenshot
 
-> Insert screenshot here.
+> <img width="461" height="158" alt="01" src="https://github.com/user-attachments/assets/487f694a-5330-4d04-8382-05e6617ae871" />
+
 
 ---
 
@@ -204,7 +206,8 @@ The `INSERT` statement generates **1 million synthetic patent records** using `g
 
 ### Screenshot
 
-> Insert screenshot here.
+> <img width="597" height="579" alt="02" src="https://github.com/user-attachments/assets/32f5703f-48fd-43fd-a525-b9cf1f9eb321" />
+
 
 ---
 
@@ -236,7 +239,8 @@ The `patent_inventors_listdata` table stores inventor information separately fro
 
 ### Screenshot
 
-> Insert screenshot here.
+> <img width="1365" height="396" alt="03" src="https://github.com/user-attachments/assets/afb2b367-e6f3-4f64-8486-81a25b212ba6" />
+
 
 ---
 
