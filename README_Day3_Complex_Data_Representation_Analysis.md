@@ -997,8 +997,23 @@ This query retrieves the updated patent record to verify that only the **status*
 
 ---
 
+## 11. Generate a single structured output for each patent containing the patent details and all associated inventors.
 
+```
+SELECT jsonb_build_object(
+    'publication_number', p.publication_number,
+    'title', p.title,
+    'inventors', jsonb_agg(pi.inventor_name)
+) AS patent_document
+FROM patents_1.patents_mockdata1 p
+JOIN patents_1.patent_inventors_listdata pi
+USING (publication_number)
+GROUP BY
+    p.publication_number,
+    p.title
+LIMIT 5;
 
+```
 
 ## 11. Generate a Hierarchical JSON Structure
 
