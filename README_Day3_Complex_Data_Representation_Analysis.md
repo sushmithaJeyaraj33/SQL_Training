@@ -1035,47 +1035,57 @@ This demonstrates PostgreSQL's ability to create nested JSON documents directly 
 ## Generate Hierarchical JSON
 
 ```sql
-WITH sample AS
-(
-    SELECT *
-    FROM patents_1.patents_mockdata1
-    WHERE EXTRACT(YEAR FROM publication_date) = 2016
-    LIMIT 100
-)
-
 SELECT jsonb_build_object
 (
-    'year',
-    EXTRACT(YEAR FROM publication_date),
+    'years',
 
-    'patents',
+    jsonb_agg(year_data ORDER BY patent_year)
+)
+FROM
+(
+    SELECT
+        patent_year,
 
-    jsonb_agg
-    (
         jsonb_build_object
         (
-            'publication_number',
-            publication_number,
+            'year', patent_year,
 
-            'title',
-            title,
+            'patents',
 
-            'inventors',
-
+            jsonb_agg
             (
-                SELECT jsonb_agg(inventor_name)
-                FROM patents_1.patent_inventors_listdata pi
-                WHERE pi.publication_number = s.publication_number
+                jsonb_build_object
+                (
+                    'patent_details',
+
+                    jsonb_build_object
+                    (
+                        'publication_number', publication_number,
+                        'title', title,
+                        'publication_date', publication_date,
+                        'abstract', abstract
+                    ),
+
+                    'inventors',
+
+                    (
+                        SELECT jsonb_agg(pi.inventor_name ORDER BY pi.inventor_name)
+                        FROM patents_1.patent_inventors_listdata pi
+                        WHERE pi.publication_number = p.publication_number
+                    )
+                )
             )
-        )
-    )
+        ) AS year_data
 
-) AS patent_hierarchy
+    FROM
+    (
+        SELECT *,
+               EXTRACT(YEAR FROM publication_date) AS patent_year
+        FROM patents_1.patents_mockdata1
+    ) p
 
-FROM sample s
-
-GROUP BY
-EXTRACT(YEAR FROM publication_date);
+    GROUP BY patent_year
+) y;
 ```
 
 ### Explanation
