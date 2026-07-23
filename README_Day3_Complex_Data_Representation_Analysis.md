@@ -924,7 +924,8 @@ LIMIT 5;
 ```
 ### Screenshot
 
-> 
+> <img width="1298" height="523" alt="Screenshot 2026-07-24 at 12 16 33 AM" src="https://github.com/user-attachments/assets/b5a0596a-cace-45e9-bceb-58f2d18de4c4" />
+
 
 
 ## 11. Generate a Hierarchical JSON Structure
@@ -1023,6 +1024,7 @@ This type of output is commonly used in dashboards, reporting tools, and web app
 ---
 
 ### Screenshot
+<img width="1359" height="600" alt="Screenshot 2026-07-24 at 12 23 20 AM" src="https://github.com/user-attachments/assets/03cbc33e-bc92-4a98-8ae2-884cdd31ab9b" />
 
 
 
