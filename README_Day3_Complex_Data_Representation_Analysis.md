@@ -395,6 +395,7 @@ FROM patents_1.patent_inventor_array
 WHERE 'Inventor_22454' = ANY(inventor_array);
 ```
 
+
 ### Explanation
 
 The `ANY()` operator checks whether the specified value matches **any element** within the ARRAY.
@@ -466,6 +467,7 @@ WHERE inventor_array && ARRAY
     'Inventor_10739'
 ];
 ```
+> <img width="412" height="297" alt="08" src="https://github.com/user-attachments/assets/c4196741-d5de-4df3-89e8-007109489b9c" />
 
 ### Explanation
 
@@ -594,7 +596,8 @@ In real-world patent databases, this technique is commonly used for:
 ---
 ### Screenshot
 
-> Insert screenshot here.
+> <img width="418" height="325" alt="09" src="https://github.com/user-attachments/assets/d62683e7-4b81-4b44-9d89-e5fcc416f31c" />
+
 
 ---
 
@@ -641,7 +644,8 @@ For example,
 
 ### Screenshot
 
-> Insert screenshot here.
+> <img width="420" height="299" alt="10" src="https://github.com/user-attachments/assets/f0344393-dd98-49d0-adc5-acd2196a8081" />
+
 
 ---
 
@@ -706,7 +710,8 @@ Include your SQL from the project here.
 
 ### Screenshot
 
-> Insert screenshot here.
+> <img width="546" height="300" alt="11" src="https://github.com/user-attachments/assets/d88c9f44-b762-4714-83b8-97c65281ffc3" />
+
 
 ---
 
@@ -793,7 +798,11 @@ allowing multiple patent attributes to be viewed as a single structured document
 
 ### Screenshot
 
-> Insert screenshot here.
+> <img width="777" height="396" alt="12" src="https://github.com/user-attachments/assets/c5732b4a-132a-4767-8496-45b59984b945" />
+
+<img width="1068" height="148" alt="13" src="https://github.com/user-attachments/assets/52e0aa8a-94d0-4b7a-ae10-0e5100856ac3" />
+
+
 
 ---
 
@@ -857,7 +866,8 @@ Only patents whose `country` value is **US** are included in the result.
 
 ### Screenshot
 
-> Insert screenshot here.
+> <img width="327" height="112" alt="14" src="https://github.com/user-attachments/assets/5b51b235-914a-42e6-898f-655deca050d5" />
+
 
 ---
 
@@ -879,7 +889,8 @@ Rather than searching a normal relational column, PostgreSQL extracts the value 
 
 ### Screenshot
 
-> Insert screenshot here.
+> <img width="1017" height="232" alt="15" src="https://github.com/user-attachments/assets/d107c935-4afb-478c-8052-cbc63dbf14a6" />
+
 
 ---
 
@@ -902,51 +913,11 @@ The `LIMIT 5` clause is used to display only a sample of the matching records fo
 
 ### Screenshot
 
-> Insert screenshot here.
+> <img width="1011" height="189" alt="16" src="https://github.com/user-attachments/assets/f1ba574e-342a-4c6a-b2ea-ebc166ccaa06" />
+
 
 ---
 
-## View Sample Publication Numbers
-
-```sql
-SELECT publication_number
-FROM patents_1.patents_mockdata1
-LIMIT 10;
-```
-
-### Explanation
-
-This query retrieves sample publication numbers from the patent table.
-
-These publication numbers are later used to identify specific records when demonstrating JSON updates using `jsonb_set()`.
-
----
-
-### Screenshot
-
-> Insert screenshot here.
-
----
-
-### Why This Step?
-
-The assignment requires:
-
-> **Query and filter patents based on individual attributes within this structured metadata.**
-
-Instead of creating separate columns for **country**, **technology**, **category**, and **status**, PostgreSQL allows direct querying of individual JSON attributes using the `->>` operator.
-
-This provides flexibility while maintaining efficient querying capabilities.
-
----
-
-### Advantages of Querying JSONB
-
-- Access individual JSON attributes directly.
-- Filter records without normalizing the JSON document.
-- Supports flexible metadata structures.
-- Can be accelerated using **GIN indexes**.
-- Simplifies handling of semi-structured data.
 
 ---
 # 9. Modify Individual JSON Attributes Using `jsonb_set()`
@@ -1021,34 +992,11 @@ This query retrieves the updated patent record to verify that only the **status*
 
 ### Screenshot
 
-> Insert screenshot here.
+> <img width="479" height="148" alt="17" src="https://github.com/user-attachments/assets/9728bf3c-ee59-41c3-90ea-01150243e130" />
+
 
 ---
 
-### Why This Step?
-
-The assignment requires:
-
-> **Modify individual attributes without replacing the complete metadata.**
-
-Using `jsonb_set()` allows PostgreSQL to update a single JSON attribute without rewriting the entire JSON object. This makes updates more efficient and reduces unnecessary data modification.
-
-In real-world applications, metadata often changes over time (for example, patent status may change from **Pending** to **Granted** or **Expired**). Updating only the required field improves both performance and maintainability.
-
----
-
-### Advantages of `jsonb_set()`
-
-- Updates only the required JSON key.
-- Preserves the remaining JSON attributes.
-- Eliminates the need to rebuild the complete JSON object.
-- Suitable for frequent metadata updates.
-- Works efficiently with JSONB data structures
-
-### Screenshot
-
-> Insert screenshots here.
----
 
 
 
@@ -1202,7 +1150,8 @@ This type of output is commonly used in dashboards, reporting tools, and web app
 ---
 ### Screenshot
 
-> Insert screenshot here.
+> <img width="1363" height="415" alt="19" src="https://github.com/user-attachments/assets/549c93be-3071-4f70-b830-bf681ed75056" />
+
 
 ---
 
@@ -1242,7 +1191,8 @@ For large datasets, this approach becomes slower because the database must scan 
 
 ### Screenshot
 
-> Insert screenshot here.
+> <img width="1146" height="239" alt="20" src="https://github.com/user-attachments/assets/3773ba5b-5b3b-4bad-ba00-eb1c26ff112f" />
+
 
 ---
 
@@ -1264,7 +1214,8 @@ Instead of scanning every row, PostgreSQL creates an index for each inventor sto
 
 ### Screenshot
 
-> Insert screenshot here.
+> <img width="420" height="67" alt="21" src="https://github.com/user-attachments/assets/b3a794cf-4355-42a5-a041-ca57ba479f7f" />
+
 
 ---
 
@@ -1288,7 +1239,8 @@ This significantly reduces query execution time, especially for large datasets c
 
 ### Screenshot
 
-> Insert screenshot here.
+> <img width="1013" height="227" alt="22" src="https://github.com/user-attachments/assets/c34d4aa5-3f3d-4818-861c-56aab439ecd3" />
+
 
 ---
 
@@ -1314,7 +1266,8 @@ Although JSONB supports flexible storage, searching without an index becomes exp
 
 ### Screenshot
 
-> Insert screenshot here.
+> <img width="1040" height="237" alt="23" src="https://github.com/user-attachments/assets/424c7b17-b0e6-4128-9089-d8785d344512" />
+
 
 ---
 
@@ -1336,7 +1289,8 @@ It enables PostgreSQL to locate matching JSON keys and values efficiently instea
 
 ### Screenshot
 
-> Insert screenshot here.
+> <img width="426" height="79" alt="24" src="https://github.com/user-attachments/assets/3c0ca3dc-fb57-47b7-80fb-748b8fcca3a9" />
+
 
 ---
 
@@ -1360,7 +1314,8 @@ Compared to a Sequential Scan, indexed searches require significantly fewer disk
 
 ### Screenshot
 
-> Insert screenshot here.
+> <img width="992" height="241" alt="25" src="https://github.com/user-attachments/assets/3847b140-d599-4e52-8a1e-94b67858058f" />
+
 
 ---
 
@@ -1417,16 +1372,6 @@ Example:
 
 ---
 
-### Screenshot
-
-> Insert screenshots for:
->
-> - ARRAY query before indexing
-> - ARRAY query after indexing
-> - JSONB query before indexing
-> - JSONB query after indexing
-
----
 
 # 13. Additional PostgreSQL Operations for Complex Data
 
@@ -1466,7 +1411,8 @@ This function is useful when the order of elements inside an ARRAY is important.
 
 ### Screenshot
 
-> Insert screenshot here.
+> <img width="642" height="412" alt="26" src="https://github.com/user-attachments/assets/01683a6d-bdc9-4c69-adf5-7dbaed5347e7" />
+
 
 ---
 
@@ -1493,7 +1439,8 @@ This operation is useful for previewing or generating updated ARRAY values befor
 
 ### Screenshot
 
-> Insert screenshot here.
+> <img width="1172" height="167" alt="27" src="https://github.com/user-attachments/assets/7d5fd25d-06ba-44eb-b31b-2f0794f735f5" />
+
 
 ---
 
@@ -1520,7 +1467,8 @@ It is commonly used when an inventor, tag, or category needs to be excluded from
 
 ### Screenshot
 
-> Insert screenshot here.
+> <img width="681" height="159" alt="28" src="https://github.com/user-attachments/assets/9a3a0a4b-e2b8-4f8d-b438-d0453db4a25b" />
+
 
 ---
 
@@ -1549,7 +1497,8 @@ This is useful when displaying a subset of large ARRAY values.
 
 ### Screenshot
 
-> Insert screenshot here.
+> <img width="566" height="307" alt="29" src="https://github.com/user-attachments/assets/133932bc-308b-4800-af79-2a78f7fdc3d1" />
+
 
 ---
 
@@ -1576,7 +1525,8 @@ This operation is useful when working with optional or dynamic JSON attributes.
 
 ### Screenshot
 
-> Insert screenshot here.
+> <img width="1061" height="269" alt="30" src="https://github.com/user-attachments/assets/c5b3bd0e-1bff-4947-8d99-4a5efe77d797" />
+
 
 ---
 
@@ -1603,7 +1553,8 @@ This is particularly useful for validating JSON document structure.
 
 ### Screenshot
 
-> Insert screenshot here.
+> <img width="1095" height="305" alt="31" src="https://github.com/user-attachments/assets/0252a1bf-aeb6-423f-a861-1a954a3f01cf" />
+
 
 ---
 
@@ -1627,7 +1578,8 @@ Although it does not modify the stored data, it improves readability during debu
 
 ### Screenshot
 
-> Insert screenshot here.
+> <img width="589" height="631" alt="32" src="https://github.com/user-attachments/assets/7655437f-168d-4269-9877-99454673a5d4" />
+
 
 ---
 
