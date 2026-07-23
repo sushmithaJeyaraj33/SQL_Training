@@ -328,10 +328,6 @@ For example:
 
 ---
 
-### Why This Step?
-
-The assignment requires:
-
 > **Create a representation where each patent contains all its associated inventor names together in a single field.**
 
 Using an ARRAY allows PostgreSQL to store multiple inventor names in one column while preserving their relationship with the patent. This representation also enables efficient ARRAY operations such as searching, matching, and comparison in the following tasks.
@@ -400,13 +396,8 @@ WHERE 'Inventor_22454' = ANY(inventor_array);
 
 The `ANY()` operator checks whether the specified value matches **any element** within the ARRAY.
 
-This query produces the same result as the previous query but uses a different PostgreSQL syntax. It is commonly used when checking whether a single value exists inside an ARRAY.
 
 ---
-
-### Why This Step?
-
-The assignment requires:
 
 > **Find patents where a specific inventor is associated with the patent.**
 
@@ -421,29 +412,6 @@ Since inventor names are stored inside an ARRAY, PostgreSQL provides specialized
 | Checks whether an ARRAY contains another ARRAY. | Checks whether a value exists in an ARRAY. |
 | Right side must be an ARRAY. | Right side is an ARRAY, left side is a single value. |
 | Suitable for ARRAY containment checks. | Suitable for single-value searches. |
-
----
-
-# 3. Find Patents Matching Any Inventor in a List
-
-```sql
-SELECT *
-FROM patents_1.patent_inventor_array
-WHERE inventor_array && ARRAY[
-'Inventor_5266',
-'Inventor_22454',
-'Inventor_10739'
-];
-```
-
-### Explanation
-
-The overlap operator (`&&`) returns patents containing at least one inventor from the supplied list.
-
-### Screenshot
-
-> <img width="412" height="297" alt="08" src="https://github.com/user-attachments/assets/c4196741-d5de-4df3-89e8-007109489b9c" />
-
 
 ---
 
@@ -493,10 +461,6 @@ Since **Inventor_22454** appears in both arrays, the patent satisfies the condit
 
 ---
 
-### Why This Step?
-
-The assignment requires:
-
 > **Find patents where at least one inventor from a given list is associated with the patent.**
 
 Instead of executing multiple search conditions using `OR`, PostgreSQL's ARRAY overlap operator (`&&`) performs this comparison efficiently in a single operation.
@@ -540,38 +504,7 @@ This query performs a **self-join** on the `patent_inventor_array` table, compar
 
 The `&&` (ARRAY Overlap) operator checks whether both patents have **at least one inventor in common**. If a common inventor exists, the pair of patents is returned.
 
-The condition
 
-```sql
-p1.publication_number < p2.publication_number
-```
-
-ensures that:
-
-- Each patent pair is displayed only once.
-- Self-comparisons (a patent compared with itself) are excluded.
-
-For example,
-
-**Patent A**
-
-```text
-{Inventor_1002, Inventor_22454, Inventor_7856}
-```
-
-**Patent B**
-
-```text
-{Inventor_22454, Inventor_9987, Inventor_4001}
-```
-
-Since both patents contain **Inventor_22454**, they are identified as related patents.
-
----
-
-### Why This Step?
-
-The assignment requires:
 
 > **Find two patents that have at least one inventor in common.**
 
@@ -671,10 +604,6 @@ FROM
 ) t;
 ```
 
-### Explanation
-
-The assignment requires:
-
 > **Convert the grouped inventor information back into individual rows and verify that the result matches the original inventor-to-patent relationships.**
 
 To verify this, the total number of inventor records in the original mapping table is compared with the number of rows produced after applying `UNNEST()`.
@@ -688,10 +617,6 @@ If both counts are identical, it confirms that:
 This validation step ensures the integrity of the transformed data.
 
 ---
-
-### Why This Step?
-
-Although ARRAYs provide a compact representation, many reporting and analytical operations require data in a normalized row format.
 
 Using `UNNEST()` allows PostgreSQL to:
 
@@ -806,18 +731,6 @@ allowing multiple patent attributes to be viewed as a single structured document
 
 ---
 
-### Why This Step?
-
-The assignment requires:
-
-> **Add structured patent metadata containing fields such as country, category, status, technology area, and filing information within a single column.**
-
-Using **JSONB** enables PostgreSQL to store related attributes as a structured document while maintaining the ability to search, filter, and update individual fields efficiently.
-
-Unlike traditional relational columns, JSONB provides schema flexibility, making it suitable for applications where metadata frequently changes or varies between records.
-
----
-
 ### Advantages of Using JSONB
 
 - Stores multiple related attributes in one column.
@@ -907,16 +820,11 @@ LIMIT 5;
 
 This query filters patents whose **status** is **Granted**.
 
-The `LIMIT 5` clause is used to display only a sample of the matching records for verification.
-
 ---
 
 ### Screenshot
 
 > <img width="1011" height="189" alt="16" src="https://github.com/user-attachments/assets/f1ba574e-342a-4c6a-b2ea-ebc166ccaa06" />
-
-
----
 
 
 ---
@@ -1014,6 +922,10 @@ GROUP BY
 LIMIT 5;
 
 ```
+### Screenshot
+
+> 
+
 
 ## 11. Generate a Hierarchical JSON Structure
 
@@ -1027,8 +939,6 @@ Year
       ├── Patent Details
       └── Inventors
 ```
-
-This demonstrates PostgreSQL's ability to create nested JSON documents directly from relational data without requiring additional application logic.
 
 ---
 
@@ -1090,62 +1000,12 @@ FROM
 
 ### Explanation
 
-The query first selects a sample of patents published in **2016** using a Common Table Expression (CTE).
-
 Using `jsonb_build_object()` and `jsonb_agg()`, PostgreSQL builds a hierarchical JSON structure where:
 
 - The top level represents the **publication year**.
 - Each year contains a collection of **patents**.
-- Every patent contains its **publication number**, **title**, and an array of **inventors**.
-
-This produces a nested JSON document that closely resembles the structure returned by modern REST APIs.
-
+- Every patent contains its **publication number**, **title**, and an array of **inventors**
 ---
-
-## Sample Output
-
-```json
-{
-  "year": 2016,
-  "patents": [
-    {
-      "publication_number": "US0000000123",
-      "title": "Advanced AI Processing System",
-      "inventors": [
-        "Inventor_1023",
-        "Inventor_5432",
-        "Inventor_8765"
-      ]
-    },
-    {
-      "publication_number": "US0000000456",
-      "title": "Cloud Computing Framework",
-      "inventors": [
-        "Inventor_2145",
-        "Inventor_9087"
-      ]
-    }
-  ]
-}
-```
-
----
-
-### Why This Step?
-
-The assignment requires:
-
-> **Generate a hierarchical result showing:**
-
-```text
-Year
-    ↓
-Patents
-    ↓
-Patent Details
-    ↓
-Inventors
-```
 
 Instead of returning flat relational tables, PostgreSQL generates a nested JSON hierarchy that groups patents by publication year and includes inventor information within each patent.
 
@@ -1155,7 +1015,6 @@ This type of output is commonly used in dashboards, reporting tools, and web app
 
 ### Advantages of Hierarchical JSON
 
-- Produces API-ready responses directly from the database.
 - Eliminates additional data transformation in application code.
 - Represents parent-child relationships naturally.
 - Simplifies integration with frontend applications.
@@ -1163,19 +1022,8 @@ This type of output is commonly used in dashboards, reporting tools, and web app
 
 ---
 
-### Real-World Applications
-
-- Patent Analytics Dashboards
-- REST APIs
-- Reporting Systems
-- Business Intelligence Applications
-- Data Exchange between Services
-- NoSQL-style Document Generation
-
----
 ### Screenshot
 
-> <img width="1363" height="415" alt="19" src="https://github.com/user-attachments/assets/549c93be-3071-4f70-b830-bf681ed75056" />
 
 
 ---
@@ -1187,10 +1035,6 @@ This type of output is commonly used in dashboards, reporting tools, and web app
 ## Objective
 
 Investigate how indexing improves the performance of ARRAY and JSONB queries by comparing execution plans before and after creating **GIN (Generalized Inverted Index)** indexes.
-
-The assignment requires:
-
-> **For each approach, investigate how the data should be indexed and compare query performance before and after optimization.**
 
 ---
 
@@ -1350,7 +1194,6 @@ GIN (Generalized Inverted Index) is optimized for **multi-valued data types** su
 
 - ARRAY
 - JSONB
-- Full-Text Search (TSVECTOR)
 
 Unlike B-Tree indexes, GIN indexes store individual elements contained inside complex data structures, making membership and containment searches much faster.
 
@@ -1380,23 +1223,9 @@ Example:
 - Reduces query execution time.
 - Improves performance on large datasets.
 - Optimizes ARRAY and JSONB searches.
-- Scales efficiently as the number of patents increases.
+
 
 ---
-
-# Concepts Covered
-
-- GIN Index
-- EXPLAIN ANALYZE
-- Query Optimization
-- Sequential Scan
-- Index Scan
-- ARRAY Indexing
-- JSONB Indexing
-- PostgreSQL Performance Tuning
-
----
-
 
 # 13. Additional PostgreSQL Operations for Complex Data
 
@@ -1608,40 +1437,6 @@ Although it does not modify the stored data, it improves readability during debu
 
 ---
 
-# Why This Step?
-
-The assignment requires demonstrating additional PostgreSQL operations for handling complex data types.
-
-These functions extend PostgreSQL's capabilities by allowing developers to:
-
-- Search within ARRAY values.
-- Modify ARRAY contents.
-- Retrieve selected ARRAY elements.
-- Validate JSON document structure.
-- Format JSON for easier interpretation.
-
-Together, these operations highlight PostgreSQL's powerful support for working with complex and semi-structured data.
-
----
-
-# Concepts Covered
-
-### ARRAY Functions
-
-- `array_position()`
-- `array_append()`
-- `array_remove()`
-- Array Slicing (`[start:end]`)
-- `cardinality()`
-
-### JSONB Functions
-
-- `?` (Key Exists)
-- `?&` (Multiple Keys Exist)
-- `jsonb_pretty()`
-
----
-
 # Conclusion
 
 This project demonstrates PostgreSQL's advanced support for **ARRAY** and **JSONB** data types to represent, query, and manipulate complex data efficiently.
@@ -1657,51 +1452,5 @@ Key accomplishments include:
 - Optimized ARRAY and JSONB queries using GIN indexes.
 - Explored additional ARRAY and JSONB operations for advanced data manipulation.
 
-These features make PostgreSQL an excellent choice for applications that require both relational and semi-structured data management while maintaining high query performance.
----
 
-# Performance Comparison
 
-| Feature | Before Index | After Index |
-|----------|--------------|-------------|
-| ARRAY Search | Sequential Scan | GIN Index Scan |
-| JSONB Search | Sequential Scan | GIN Index Scan |
-
----
-
-# Production Use Cases
-
-## ARRAY
-
-Suitable for storing:
-- Multiple inventors
-- Tags
-- Skills
-
-Not suitable for frequent element updates.
-
-## JSONB
-
-Suitable for:
-- Flexible metadata
-- API payloads
-- Dynamic attributes
-
-Not suitable when strict relational constraints are required.
-
----
-
-# Technologies Used
-
-- PostgreSQL
-- SQL
-- ARRAY
-- JSONB
-- GIN Index
-- EXPLAIN ANALYZE
-
----
-
-# Conclusion
-
-This project demonstrates PostgreSQL's advanced support for complex data types using ARRAY and JSONB. It also shows how GIN indexing significantly improves query performance while enabling flexible storage and efficient querying of semi-structured data.
