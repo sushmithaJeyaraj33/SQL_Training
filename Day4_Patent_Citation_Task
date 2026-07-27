@@ -2,19 +2,9 @@
 
 ## Objective
 
-The objective of this exercise is to model patent citation relationships and analyze them using PostgreSQL recursive queries. This implementation demonstrates graph traversal, recursive Common Table Expressions (CTEs), database functions, reporting views, materialized views, and performance benchmarking on a dataset containing approximately **1 million patent records**.
+The objective of this exercise is to model patent citation relationships and analyze them using PostgreSQL recursive queries.
 
 ---
-
-# Environment
-
-- PostgreSQL
-- SQL
-- Recursive CTE
-- Window Functions
-- Views
-- Materialized Views
-- EXPLAIN ANALYZE
 
 ---
 
@@ -81,6 +71,24 @@ citation.patent_training(publication_number)
 for both columns.
 
 ---
+```sql
+CREATE TABLE citation.patent_citations
+(
+    citing_publication TEXT NOT NULL,
+    cited_publication  TEXT NOT NULL,
+
+    CONSTRAINT pk_patent_citations
+        PRIMARY KEY (citing_publication, cited_publication),
+
+    CONSTRAINT fk_citing_publication
+        FOREIGN KEY (citing_publication)
+        REFERENCES citation.patent_training (publication_number),
+
+    CONSTRAINT fk_cited_publication
+        FOREIGN KEY (cited_publication)
+        REFERENCES citation.patent_training (publication_number)
+);
+```
 
 ## Why?
 
