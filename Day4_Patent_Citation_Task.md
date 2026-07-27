@@ -1,4 +1,4 @@
-# Day 4 – Patent Citation Task for
+# Day 4 – Patent Citation Task
 
 ## Objective
 
