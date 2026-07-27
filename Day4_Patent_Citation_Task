@@ -4,7 +4,6 @@
 
 The objective of this exercise is to model patent citation relationships and analyze them using PostgreSQL recursive queries.
 
----
 
 ---
 
