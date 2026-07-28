@@ -28,7 +28,8 @@ CREATE TABLE patent_citations (
 
 ### Output Screenshot
 
-> **Insert Screenshot Here**
+> <img width="769" height="177" alt="image_1" src="https://github.com/user-attachments/assets/42313625-0cc6-4ee2-a535-da25176cc321" />
+
 
 ---
 
@@ -79,7 +80,9 @@ WHERE p.rn > 1;
 
 ### Output Screenshot
 
-> **Insert Screenshot Here**
+> <img width="506" height="189" alt="image_3" src="https://github.com/user-attachments/assets/347b0479-dc60-4bd9-bfbf-b7b8024be31a" />
+
+<img width="595" height="412" alt="image_5" src="https://github.com/user-attachments/assets/4c8661ed-5ffd-46a4-82f0-953ed7b97b9d" />
 
 ---
 
@@ -133,7 +136,8 @@ ORDER BY root_patent, depth, path;
 
 ### Output Screenshot
 
-> **Insert Screenshot Here**
+> <img width="732" height="637" alt="Screenshot 2026-07-28 at 8 52 27 AM" src="https://github.com/user-attachments/assets/764c04a9-3cf6-4f64-9ef9-3edd237fb956" />
+
 
 ---
 
@@ -185,7 +189,8 @@ $$;
 
 ### Output Screenshot
 
-> **Insert Screenshot Here**
+> <img width="797" height="516" alt="image_10" src="https://github.com/user-attachments/assets/dd752965-4323-4e3a-9478-6eef5de18a4f" />
+
 
 ---
 
@@ -217,7 +222,8 @@ LIMIT 150 ;
 
 ### Output Screenshot
 
-> **Insert Screenshot Here**
+> <img width="929" height="599" alt="image_11" src="https://github.com/user-attachments/assets/ca7004b4-1734-4b99-8222-8c53dbdbc016" />
+
 
 ---
 
@@ -258,7 +264,8 @@ FROM
 
 ### Output Screenshot
 
-> **Insert Screenshot Here**
+> <img width="682" height="446" alt="image_12" src="https://github.com/user-attachments/assets/204c48fc-e03d-4756-8f2c-be814c0064f6" />
+
 
 ---
 
@@ -278,7 +285,8 @@ FROM patent_citation_summary_demo;
 
 ### Output Screenshot
 
-> **Insert Screenshot Here**
+> <img width="605" height="119" alt="image_13" src="https://github.com/user-attachments/assets/c4627d4c-3fc7-42bf-b537-3cc0f6ae7aca" />
+
 
 ---
 
@@ -313,7 +321,8 @@ LIMIT 100 ;
 
 ### Screenshot
 
-> **Insert Screenshot Here**
+> <img width="1334" height="506" alt="image_14" src="https://github.com/user-attachments/assets/e3e907ae-85e5-47d2-9c7f-cdc588413f3b" />
+
 
 ---
 
@@ -331,7 +340,8 @@ limit 100;
 
 ### Screenshot
 
-> **Insert Screenshot Here**
+> <img width="1244" height="368" alt="image_15" src="https://github.com/user-attachments/assets/07fc946b-8613-47c6-bd9e-bc3517a76755" />
+
 
 ---
 
@@ -348,7 +358,8 @@ limit 100;
 
 ### Screenshot
 
-> **Insert Screenshot Here**
+> <img width="1098" height="175" alt="image_16" src="https://github.com/user-attachments/assets/c356f7fc-7657-4425-add6-bd4d2aefc54c" />
+
 
 ---
 
@@ -382,7 +393,10 @@ VALUES
 
 ### Output Screenshot
 
-> **Insert Screenshot Here**
+> <img width="806" height="260" alt="image_18" src="https://github.com/user-attachments/assets/03893ae9-752b-4519-863f-71a0d49a67ff" />
+
+
+<img width="876" height="90" alt="image_20" src="https://github.com/user-attachments/assets/8e8a4a00-de3d-49f3-88c8-fa0f05781499" />
 
 ---
 
@@ -401,7 +415,14 @@ REFRESH MATERIALIZED VIEW patent_citation_summary_mv;
 ### Output Screenshot
 
 > **Before Refresh
+<img width="876" height="90" alt="image_20" src="https://github.com/user-attachments/assets/955cc5fe-ccf8-44ba-9a9b-17a71e06722d" />
+
+
 > **After Refresh
+<img width="610" height="64" alt="image_21" src="https://github.com/user-attachments/assets/27448e7c-b143-4cc2-b2ae-a6403da3d472" />
+
+<img width="1014" height="113" alt="Screenshot 2026-07-28 at 9 03 55 AM" src="https://github.com/user-attachments/assets/4771ab27-8347-47e2-808d-9c7e617eb79f" />
+
 
 ---
 
