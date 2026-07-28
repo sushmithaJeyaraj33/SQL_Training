@@ -352,6 +352,7 @@ ORDER BY depth, path;
 
 ### Screenshot
 
+<img width="1213" height="481" alt="Screenshot 2026-07-28 at 9 34 30 AM" src="https://github.com/user-attachments/assets/6aecd71a-e8aa-4ac5-8124-14d7a5315126" />
 
 ---
 
@@ -380,6 +381,7 @@ where publication_number='US0000392642';
 ```
 
 ### Screenshot
+<img width="1237" height="376" alt="Screenshot 2026-07-28 at 9 34 49 AM" src="https://github.com/user-attachments/assets/e0e25f17-5fb1-409c-aa9b-bee061c8923f" />
 
 ---
 
@@ -405,6 +407,8 @@ FROM patent_citation_summary_mv
 where publication_number='US0000392642';
 ```
 ### Screenshot
+
+<img width="1252" height="179" alt="Screenshot 2026-07-28 at 9 35 20 AM" src="https://github.com/user-attachments/assets/9e5714c6-c0f3-4576-bf1f-abb58a2351ee" />
 
 ---
 
