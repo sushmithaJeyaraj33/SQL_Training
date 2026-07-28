@@ -435,13 +435,12 @@ REFRESH MATERIALIZED VIEW patent_citation_summary_mv;
 - Views provided real-time results based on the latest data.
 - Materialized views significantly reduced query execution time for repeated analysis.
 - Materialized views required manual refresh after inserting new citation records.
-- Performance testing confirmed the benefits of storing precomputed results for analytical workloads.
 - Execution plans were analyzed to compare optimizer behavior for each implementation.
 
 ---
 
 # 14. Conclusion
 
-The patent citation system was successfully implemented using PostgreSQL recursive queries, functions, views, and materialized views. Performance testing demonstrated that materialized views provide the best read performance for large analytical datasets, while standard views always reflect the latest data. The complete implementation was validated on approximately **1 million patent records**, and all SQL scripts, execution plans, observations, and screenshots were documented for version control in GitHub.
+The patent citation was successfully implemented using PostgreSQL recursive queries, functions, views, and materialized views. Performance testing demonstrated that materialized views provide the best read performance for large analytical datasets, while standard views always reflect the latest data. 
 
 ---
