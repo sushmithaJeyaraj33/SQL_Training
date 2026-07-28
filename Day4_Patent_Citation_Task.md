@@ -317,6 +317,41 @@ LIMIT 100 ;
 
 > <img width="1334" height="506" alt="image_14" src="https://github.com/user-attachments/assets/e3e907ae-85e5-47d2-9c7f-cdc588413f3b" />
 
+```
+EXPLAIN ANALYZE
+WITH RECURSIVE hierarchy AS
+(
+    SELECT
+        pc.citing_publication_number AS root_patent,
+        pc.cited_publication_number,
+        1 AS depth,
+        pc.citing_publication_number || ' -> ' || pc.cited_publication_number AS path
+    FROM patent_citations pc
+    WHERE pc.citing_publication_number = 'US0000392642'   -- Input patent
+
+    UNION ALL
+
+    SELECT
+        h.root_patent,
+        pc.cited_publication_number,
+        h.depth + 1,
+        h.path || ' -> ' || pc.cited_publication_number
+    FROM hierarchy h
+    JOIN patent_citations pc
+      ON pc.citing_publication_number = h.cited_publication_number
+    WHERE h.depth < 3
+
+)
+SELECT
+    root_patent,
+    depth,
+    path
+FROM hierarchy
+ORDER BY depth, path;
+```
+
+### Screenshot
+
 
 ---
 
@@ -337,6 +372,15 @@ limit 100;
 > <img width="1244" height="368" alt="image_15" src="https://github.com/user-attachments/assets/07fc946b-8613-47c6-bd9e-bc3517a76755" />
 
 
+```
+EXPLAIN ANALYZE
+SELECT *
+FROM patent_citation_summary_demo
+where publication_number='US0000392642';
+```
+
+### Screenshot
+
 ---
 
 ## Materialized View
@@ -354,6 +398,13 @@ limit 100;
 
 > <img width="1098" height="175" alt="image_16" src="https://github.com/user-attachments/assets/c356f7fc-7657-4425-add6-bd4d2aefc54c" />
 
+```
+EXPLAIN ANALYZE
+SELECT *
+FROM patent_citation_summary_mv
+where publication_number='US0000392642';
+```
+### Screenshot
 
 ---
 
