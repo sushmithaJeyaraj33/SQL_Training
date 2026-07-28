@@ -32,6 +32,23 @@ CREATE TABLE patent_citations (
 
 
 ---
+## Description
+
+Index is created on newly created citation table.
+
+### SQL Query
+
+```sql
+CREATE INDEX idx_citing
+ON patent_citations(citing_publication_number);
+
+CREATE INDEX idx_cited
+ON patent_citations(cited_publication_number);
+```
+
+### Output Screenshot
+
+> <img width="489" height="125" alt="image_2" src="https://github.com/user-attachments/assets/7705d611-0117-4462-9c53-1e21e2590498" />
 
 # 2. Generate Citation Relationships
 
