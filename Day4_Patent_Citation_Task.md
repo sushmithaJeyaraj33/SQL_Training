@@ -95,27 +95,19 @@ A recursive query is used to retrieve the complete citation hierarchy for a give
 ### SQL Query
 
 ```sql
+
 WITH RECURSIVE hierarchy AS
 (
-    -- Start with multiple patents
     SELECT
-        p.publication_number AS root_patent,
+        pc.citing_publication_number AS root_patent,
         pc.cited_publication_number,
         1 AS depth,
-        p.publication_number || ' -> ' || pc.cited_publication_number AS path
-    FROM
-    (
-        SELECT publication_number
-        FROM patents_1.patents_mockdata1
-        ORDER BY publication_number
-        LIMIT 3
-    ) p
-    JOIN patent_citations pc
-      ON pc.citing_publication_number = 'US0000392642'
+        pc.citing_publication_number || ' -> ' || pc.cited_publication_number AS path
+    FROM patent_citations pc
+    WHERE pc.citing_publication_number = 'US0000843595'   -- Input patent
 
     UNION ALL
 
-    -- Continue recursion
     SELECT
         h.root_patent,
         pc.cited_publication_number,
@@ -125,18 +117,20 @@ WITH RECURSIVE hierarchy AS
     JOIN patent_citations pc
       ON pc.citing_publication_number = h.cited_publication_number
     WHERE h.depth < 3
+
 )
 SELECT
     root_patent,
     depth,
     path
 FROM hierarchy
-ORDER BY root_patent, depth, path;
+ORDER BY depth, path;
 ```
 
 ### Output Screenshot
 
-> <img width="732" height="637" alt="Screenshot 2026-07-28 at 8 52 27 AM" src="https://github.com/user-attachments/assets/764c04a9-3cf6-4f64-9ef9-3edd237fb956" />
+> <img width="752" height="347" alt="Screenshot 2026-07-28 at 9 11 45 AM" src="https://github.com/user-attachments/assets/55b4347b-6df6-4234-a1fe-7f98fd50f98d" />
+
 
 
 ---
