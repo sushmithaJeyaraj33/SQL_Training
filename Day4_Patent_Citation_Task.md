@@ -334,7 +334,7 @@ LIMIT 100 ;
 
 > <img width="1334" height="506" alt="image_14" src="https://github.com/user-attachments/assets/e3e907ae-85e5-47d2-9c7f-cdc588413f3b" />
 
-```
+```sql
 EXPLAIN ANALYZE
 WITH RECURSIVE hierarchy AS
 (
@@ -390,7 +390,7 @@ limit 100;
 > <img width="1244" height="368" alt="image_15" src="https://github.com/user-attachments/assets/07fc946b-8613-47c6-bd9e-bc3517a76755" />
 
 
-```
+```sql
 EXPLAIN ANALYZE
 SELECT *
 FROM patent_citation_summary_demo
@@ -417,7 +417,7 @@ limit 100;
 
 > <img width="1098" height="175" alt="image_16" src="https://github.com/user-attachments/assets/c356f7fc-7657-4425-add6-bd4d2aefc54c" />
 
-```
+```sql
 EXPLAIN ANALYZE
 SELECT *
 FROM patent_citation_summary_mv
