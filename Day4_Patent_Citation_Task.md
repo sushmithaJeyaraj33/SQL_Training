@@ -102,6 +102,20 @@ WHERE p.rn > 1;
 <img width="595" height="412" alt="image_5" src="https://github.com/user-attachments/assets/4c8661ed-5ffd-46a4-82f0-953ed7b97b9d" />
 
 ---
+## Description
+
+Index is created on Temp table.
+
+### SQL Query
+
+```sql
+CREATE INDEX idx_ordered_patents_rn
+ON ordered_patents(rn);
+```
+
+### Output Screenshot
+<img width="423" height="94" alt="image_4" src="https://github.com/user-attachments/assets/897a4334-ad9b-4cd0-a370-9c88ea5d2714" />
+
 
 # 3. Retrieve Complete Citation Hierarchy
 
