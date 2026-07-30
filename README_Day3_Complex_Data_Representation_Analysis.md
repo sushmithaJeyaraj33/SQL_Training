@@ -627,11 +627,6 @@ Using `UNNEST()` allows PostgreSQL to:
 
 ---
 
-# 6. Create Patent Metadata using JSONB
-
-Use `jsonb_build_object()` to store country, category, status, technology and filing date inside a single JSONB column.
-
-Include your SQL from the project here.
 
 ### Screenshot
 
